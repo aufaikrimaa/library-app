@@ -16,14 +16,20 @@ function BookGrid({ categories }) {
   return (
     <>
       <div className="flex flex-wrap justify-center">
-        {books.map((item, index) => (
-          <BookCard
-            key={index}
-            img={item.volumeInfo.imageLinks?.thumbnail}
-            title={item.volumeInfo.title}
-            id={item.id}
-          />
-        ))}
+        {books && books.length > 0 ? (
+          <>
+            {books.map((item, index) => (
+              <BookCard
+                key={index}
+                img={item.volumeInfo.imageLinks?.thumbnail}
+                title={item.volumeInfo.title}
+                id={item.id}
+              />
+            ))}
+          </>
+        ) : (
+          <p>Loading...</p>
+        )}
       </div>
     </>
   );

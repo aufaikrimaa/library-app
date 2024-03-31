@@ -31,15 +31,21 @@ function BookSwiper({ categories }) {
         modules={[FreeMode, Navigation]}
         className="swiper-books"
       >
-        {books.map((item, index) => (
-          <SwiperSlide key={index}>
-            <BookCard
-              key={index}
-              img={item.volumeInfo.imageLinks?.thumbnail}
-              title={item.volumeInfo.title}
-            />
-          </SwiperSlide>
-        ))}
+        {books && books.length > 0 ? (
+          <>
+            {books.map((item, index) => (
+              <SwiperSlide key={index}>
+                <BookCard
+                  key={index}
+                  img={item.volumeInfo.imageLinks?.thumbnail}
+                  title={item.volumeInfo.title}
+                />
+              </SwiperSlide>
+            ))}
+          </>
+        ) : (
+          <p>Loading...</p>
+        )}
       </Swiper>
     </>
   );
