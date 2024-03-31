@@ -39,6 +39,7 @@ function BookSwiper({ categories }) {
                   key={index}
                   img={item.volumeInfo.imageLinks?.thumbnail}
                   title={item.volumeInfo.title}
+                  id={item.id}
                 />
               </SwiperSlide>
             ))}

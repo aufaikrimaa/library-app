@@ -1,4 +1,3 @@
-import BooksList from "../components/book-list/BooksList";
 import BookSwiper from "../components/book-swiper/BookSwiper";
 import { categoriesA } from "../components/book-category/categoryData";
 
