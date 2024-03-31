@@ -5,6 +5,8 @@ const bookSlice = createSlice({
   name: "book",
   initialState: {
     books: [],
+    bookDetail: {},
+    selfLink: "",
     status: "",
   },
   reducers: {
@@ -15,10 +17,15 @@ const bookSlice = createSlice({
       state.books = action.payload.data;
       state.status = action.payload.status;
     },
+    getBookDetailSuccess(state, action) {
+      state.bookDetail = action.payload.data;
+      state.status = action.payload.status;
+    },
+    setSelfLink(state, action) {
+      state.selfLink = action.payload;
+    },
   },
 });
-
-export const { setStatus, getBookSuccess } = bookSlice.actions;
 
 export const getBooks = (categories) => {
   return async (dispatch) => {
@@ -26,7 +33,7 @@ export const getBooks = (categories) => {
 
     let allBooks = [];
     let startIndex = 0;
-    const maxResults = 40; // Jumlah maksimum buku per permintaan
+    const maxResults = 40;
 
     while (startIndex < 200) {
       const response = await axios.get(
@@ -49,4 +56,25 @@ export const getBooks = (categories) => {
   };
 };
 
+export const getBookDetail = (id) => {
+  // Menggunakan id sebagai parameter
+  return async (dispatch) => {
+    dispatch(setStatus("loading"));
+
+    try {
+      const response = await axios.get(
+        `https://www.googleapis.com/books/v1/volumes/${id}`
+      );
+
+      dispatch(
+        getBookDetailSuccess({ data: response.data, status: "success" })
+      );
+    } catch (error) {
+      dispatch(setStatus("error"));
+    }
+  };
+};
+
+export const { setStatus, getBookSuccess, getBookDetailSuccess, setSelfLink } =
+  bookSlice.actions;
 export default bookSlice.reducer;

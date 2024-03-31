@@ -11,7 +11,7 @@ function BookGrid({ categories }) {
     dispatch(getBooks(categories));
   }, [categories, dispatch]);
 
-  console.log(books);
+  // console.log(books);
 
   return (
     <>
@@ -21,6 +21,7 @@ function BookGrid({ categories }) {
             key={index}
             img={item.volumeInfo.imageLinks?.thumbnail}
             title={item.volumeInfo.title}
+            id={item.id}
           />
         ))}
       </div>
