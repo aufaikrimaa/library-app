@@ -4,9 +4,10 @@ import axios from "axios";
 const bookSlice = createSlice({
   name: "book",
   initialState: {
-    books: [],
+    books: {}, // Caching untuk getBooks
+    allBooks: {}, // Caching untuk getAllBooks
+    bookSlide: [],
     bookDetail: {},
-    selfLink: "",
     status: "",
   },
   reducers: {
@@ -14,18 +15,37 @@ const bookSlice = createSlice({
       state.status = action.payload;
     },
     getBookSuccess(state, action) {
-      state.books = action.payload.data;
+      const { data, categories } = action.payload;
+      state.books[categories.join(",")] = data; // Caching untuk getBooks
       state.status = action.payload.status;
     },
     getBookDetailSuccess(state, action) {
       state.bookDetail = action.payload.data;
       state.status = action.payload.status;
     },
+    getBookSlide(state, action) {
+      state.bookSlide = action.payload.data;
+      state.status = action.payload.status;
+    },
+    getAllBookSuccess(state, action) {
+      state.allBooks = action.payload.data;
+      state.status = action.payload.status;
+    },
   },
 });
 
 export const getBooks = (categories) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const cacheKey = categories.join(",");
+    const cachedBooks = getState().books.books[cacheKey];
+
+    if (cachedBooks) {
+      dispatch(
+        getBookSuccess({ data: cachedBooks, categories, status: "success" })
+      );
+      return;
+    }
+
     dispatch(setStatus("loading"));
 
     let allBooks = [];
@@ -49,12 +69,11 @@ export const getBooks = (categories) => {
       startIndex += maxResults;
     }
 
-    dispatch(getBookSuccess({ data: allBooks, status: "success" }));
+    dispatch(getBookSuccess({ data: allBooks, categories, status: "success" }));
   };
 };
 
 export const getBookDetail = (id) => {
-  // Menggunakan id sebagai parameter
   return async (dispatch) => {
     dispatch(setStatus("loading"));
 
@@ -78,19 +97,26 @@ export const getBooksforSlides = () => {
     const response = await axios.get(
       "https://www.googleapis.com/books/v1/volumes?q=language:id"
     );
-    dispatch(getBookSuccess({ data: response.data.items, status: "success" }));
+    dispatch(getBookSlide({ data: response.data.items, status: "success" }));
   };
 };
 
 export const getAllBooks = () => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const cachedAllBooks = getState().books.allBooks;
+
+    if (Object.keys(cachedAllBooks).length !== 0) {
+      dispatch(getAllBookSuccess({ data: cachedAllBooks, status: "success" }));
+      return;
+    }
+
     dispatch(setStatus("loading"));
 
     let allBooks = [];
     let startIndex = 0;
     const maxResults = 40;
 
-    while (startIndex < 200) {
+    while (startIndex < 150) {
       const response = await axios.get(
         `https://www.googleapis.com/books/v1/volumes?q=language:id&startIndex=${startIndex}&maxResults=${maxResults}`
       );
@@ -101,10 +127,15 @@ export const getAllBooks = () => {
       startIndex += maxResults;
     }
 
-    dispatch(getBookSuccess({ data: allBooks, status: "success" }));
+    dispatch(getAllBookSuccess({ data: allBooks, status: "success" }));
   };
 };
 
-export const { setStatus, getBookSuccess, getBookDetailSuccess } =
-  bookSlice.actions;
+export const {
+  setStatus,
+  getBookSuccess,
+  getBookDetailSuccess,
+  getBookSlide,
+  getAllBookSuccess,
+} = bookSlice.actions;
 export default bookSlice.reducer;

@@ -2,8 +2,39 @@ import BookSwiper from "../components/book-swiper/BookSwiper";
 import AllBooks from "../components/book-swiper/AllBooks";
 import Hero from "../components/hero/Hero";
 import Navbar from "../components/navbar/Navbar";
+import About from "../components/about/About";
+import {
+  categoriesA,
+  categoriesB,
+  categoriesC,
+  categoriesD,
+  categoriesE,
+} from "../components/book-category/categoryData";
 
 function Home() {
+  const swiperData = [
+    {
+      title: "Business & Economics",
+      category: categoriesA,
+    },
+    {
+      title: "Computers & Technology",
+      category: categoriesB,
+    },
+    {
+      title: "Education & Knowledge",
+      category: categoriesC,
+    },
+    {
+      title: "Language, Linguistics & Arts",
+      category: categoriesD,
+    },
+    {
+      title: "Law & Legal Issues",
+      category: categoriesE,
+    },
+  ];
+
   return (
     <>
       <div>
@@ -11,10 +42,20 @@ function Home() {
         <Hero />
         <div className="h-[60vh] py-[3%] mt-2">
           <div className="flex justify-center text-[#525E85] text-3xl font-bold mb-4">
-            150+ Book from Google
+            200+ Books from Google
           </div>
           <AllBooks />
         </div>
+        <About />
+        {swiperData.map((item, index) => (
+          <div key={index} className="h-[60vh] py-[3%] mt-2 text-[#525E85]">
+            <div className="section">
+              <div className="text-xl font-bold mt-4 mb-2">{item.title}</div>
+            </div>
+
+            <BookSwiper categories={item.category} />
+          </div>
+        ))}
       </div>
     </>
   );

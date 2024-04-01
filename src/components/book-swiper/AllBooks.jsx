@@ -13,13 +13,13 @@ import "./book-swiper.css";
 
 function AllBooks({}) {
   const dispatch = useDispatch();
-  const { books } = useSelector((state) => state.books);
+  const { allBooks } = useSelector((state) => state.books);
 
   useEffect(() => {
     dispatch(getAllBooks());
   }, []);
 
-  console.log(books);
+  // console.log(allBooks);
 
   return (
     <>
@@ -30,11 +30,11 @@ function AllBooks({}) {
           slidesPerView={6}
           navigation={true}
           modules={[FreeMode, Navigation]}
-          className="swiper-books"
+          className="swiper-allBooks"
         >
-          {books && books.length > 0 ? (
+          {allBooks && allBooks.length > 0 ? (
             <>
-              {books.map((item, index) => (
+              {allBooks.map((item, index) => (
                 <SwiperSlide key={index}>
                   <BookCard
                     key={index}

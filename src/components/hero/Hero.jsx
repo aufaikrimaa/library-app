@@ -13,7 +13,7 @@ SwiperCore.use([Autoplay]);
 
 function Hero() {
   const dispatch = useDispatch();
-  const { books } = useSelector((state) => state.books);
+  const { bookSlide } = useSelector((state) => state.books);
 
   useEffect(() => {
     dispatch(getBooksforSlides());
@@ -24,6 +24,7 @@ function Hero() {
       modules: [Autoplay],
       autoplay: { delay: 5000 },
       speed: 1000,
+      slidesPerView: 1,
       grabCursor: true,
       loop: true,
     });
@@ -32,18 +33,18 @@ function Hero() {
     return () => {
       swiper.destroy();
     };
-  }, [books]);
+  }, [bookSlide]);
 
-  console.log(books);
+  // console.log(bookSlide);
 
   return (
     <>
-      <div className="hero bg-[#EBEEF6] flex text-[#525E85] ">
-        <Swiper className="swiper-hero self-center">
-          {books.map((item, index) => (
-            <SwiperSlide key={index} className="hero-slide-photos flex pb-1">
+      <div className="hero bg-[#EBEEF6] flex text-[#525E85]">
+        <Swiper className="swiper-hero self-center mt-10">
+          {bookSlide.map((item, index) => (
+            <SwiperSlide key={index} className="hero-slide-photos flex">
               <div className="basis-1/2 flex justify-center pl-13">
-                <div className="self-end">
+                <div className="self-center">
                   <div className="text-5xl font-bold mb-4">
                     {item.volumeInfo.title}
                   </div>
@@ -67,7 +68,7 @@ function Hero() {
                   <img
                     src={item.volumeInfo.imageLinks?.smallThumbnail}
                     alt={`image ${index}`}
-                    className="img-swipe self-end h-[18rem]"
+                    className="img-swipe self-center h-[18rem]"
                   />
                 </div>
               </div>

@@ -90,7 +90,16 @@ function Navbar() {
       </div>
       <div className="dropdown z-10 fixed ml-[82%]">
         {isDropdownOpen && (
-          <ul className="z-30 bg-white shadow-lg mt-11 w-[16rem] mr-24">
+          <ul className="z-30 bg-white shadow-lg mt-11 w-[16rem] mr-24 text-[#525E85]">
+            <div className="block px-4 py-2 font-bold border-b-2">Category</div>
+            <li>
+              <Link
+                to="/all-books"
+                className="block px-4 py-2 hover:bg-gray-200"
+              >
+                All Books
+              </Link>
+            </li>
             {bookNav.map((nav, i) => (
               <li key={i}>
                 <Link

@@ -19,7 +19,7 @@ function BookSwiper({ categories }) {
     dispatch(getBooks(categories));
   }, [categories, dispatch]);
 
-  //   console.log(books);
+  const categoryKey = categories.join(",");
 
   return (
     <>
@@ -32,9 +32,9 @@ function BookSwiper({ categories }) {
           modules={[FreeMode, Navigation]}
           className="swiper-books"
         >
-          {books && books.length > 0 ? (
+          {books && books[categoryKey] && books[categoryKey].length > 0 ? (
             <>
-              {books.map((item, index) => (
+              {books[categoryKey].map((item, index) => (
                 <SwiperSlide key={index}>
                   <BookCard
                     key={index}
