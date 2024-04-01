@@ -44,7 +44,7 @@ function Home() {
         <Hero />
         <div className="h-[60vh] lg:h-[70vh] py-[3%] mt-2">
           <div className="flex justify-center text-[#525E85] text-3xl font-bold mb-4">
-            150+ Books from Google
+            200+ Books from Google
           </div>
           <AllBooks />
         </div>
@@ -54,12 +54,12 @@ function Home() {
             key={index}
             className="h-[60vh] lg:h-[70vh] py-[3%] mt-2 text-[#525E85]"
           >
-            <div className="section flex justify-between">
-              <div className="text-2xl font-bold mt-4 mb-2">{item.title}</div>
-              <div className=" w-[12%] lg:w-[14%]">
+            <div className="section flex justify-between mb-2">
+              <div className="text-2xl font-bold">{item.title}</div>
+              <div className=" w-[12%] lg:w-[13%]">
                 <Link
-                  to="/all-books"
-                  className="button-view bg-white py-0.5 border-2 border-[#c1cffa] hover:bg-[#c1cffa] flex justify-center rounded-full font-bold text-xl cursor-pointer "
+                  to={`/books/${item.title}`}
+                  className="button-view bg-white py-0.5 border-2 border-[#c1cffa] hover:bg-[#c1cffa] flex justify-center rounded-full font-bold text-xl lg:text-lg cursor-pointer "
                 >
                   view more➡️
                 </Link>

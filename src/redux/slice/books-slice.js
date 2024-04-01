@@ -2,10 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const bookSlice = createSlice({
-  name: "book",
+  name: "books",
   initialState: {
-    books: {}, // Caching untuk getBooks
-    allBooks: {}, // Caching untuk getAllBooks
+    books: {},
+    allBooks: {},
     bookSlide: [],
     bookDetail: {},
     status: "",
@@ -16,7 +16,7 @@ const bookSlice = createSlice({
     },
     getBookSuccess(state, action) {
       const { data, categories } = action.payload;
-      state.books[categories.join(",")] = data; // Caching untuk getBooks
+      state.books[categories.join(",")] = data;
       state.status = action.payload.status;
     },
     getBookDetailSuccess(state, action) {
@@ -74,7 +74,15 @@ export const getBooks = (categories) => {
 };
 
 export const getBookDetail = (id) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const cachedBookDetail = getState().books.bookDetail;
+
+    if (Object.keys(cachedBookDetail).length !== 0) {
+      dispatch(
+        getBookDetailSuccess({ data: cachedBookDetail, status: "success" })
+      );
+    }
+
     dispatch(setStatus("loading"));
 
     try {
@@ -92,7 +100,13 @@ export const getBookDetail = (id) => {
 };
 
 export const getBooksforSlides = () => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const cachedBookSlide = getState().books.bookSlide;
+
+    if (Object.keys(cachedBookSlide).length !== 0) {
+      dispatch(getBookSlide({ data: cachedBookSlide, status: "success" }));
+    }
+
     dispatch(setStatus("loading"));
     const response = await axios.get(
       "https://www.googleapis.com/books/v1/volumes?q=language:id"
@@ -116,7 +130,7 @@ export const getAllBooks = () => {
     let startIndex = 0;
     const maxResults = 40;
 
-    while (startIndex < 150) {
+    while (startIndex < 201) {
       const response = await axios.get(
         `https://www.googleapis.com/books/v1/volumes?q=language:id&startIndex=${startIndex}&maxResults=${maxResults}`
       );
