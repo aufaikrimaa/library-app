@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getBookDetail } from "../redux/slice/books-slice";
+import Navbar from "../components/navbar/Navbar";
 
 function DetailBook() {
   const { id } = useParams();
@@ -16,6 +17,7 @@ function DetailBook() {
 
   return (
     <div>
+      <Navbar />
       {bookDetail && bookDetail.volumeInfo ? (
         <>
           <h2>{bookDetail.volumeInfo.title}</h2>
