@@ -7,6 +7,7 @@ import {
   categoriesD,
   categoriesE,
 } from "../components/book-category/categoryData";
+import Navbar from "../components/navbar/Navbar";
 
 function CategoryBooks() {
   const { category } = useParams();
@@ -33,10 +34,11 @@ function CategoryBooks() {
       selectedCategories = categoriesA;
   }
 
-  console.log(selectedCategories);
+  // console.log(selectedCategories);
   return (
     <>
-      <div>
+      <Navbar />
+      <div className="section">
         {category}
         <BookGrid categories={selectedCategories} />
       </div>

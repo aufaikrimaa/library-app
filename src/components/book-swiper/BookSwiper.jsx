@@ -23,31 +23,33 @@ function BookSwiper({ categories }) {
 
   return (
     <>
-      <Swiper
-        grabCursor={true}
-        spaceBetween={10}
-        slidesPerView={6}
-        navigation={true}
-        modules={[FreeMode, Navigation]}
-        className="swiper-books"
-      >
-        {books && books.length > 0 ? (
-          <>
-            {books.map((item, index) => (
-              <SwiperSlide key={index}>
-                <BookCard
-                  key={index}
-                  img={item.volumeInfo.imageLinks?.thumbnail}
-                  title={item.volumeInfo.title}
-                  id={item.id}
-                />
-              </SwiperSlide>
-            ))}
-          </>
-        ) : (
-          <p>Loading...</p>
-        )}
-      </Swiper>
+      <div className="section">
+        <Swiper
+          grabCursor={true}
+          spaceBetween={10}
+          slidesPerView={6}
+          navigation={true}
+          modules={[FreeMode, Navigation]}
+          className="swiper-books"
+        >
+          {books && books.length > 0 ? (
+            <>
+              {books.map((item, index) => (
+                <SwiperSlide key={index}>
+                  <BookCard
+                    key={index}
+                    img={item.volumeInfo.imageLinks?.thumbnail}
+                    title={item.volumeInfo.title}
+                    id={item.id}
+                  />
+                </SwiperSlide>
+              ))}
+            </>
+          ) : (
+            <p>Loading...</p>
+          )}
+        </Swiper>
+      </div>
     </>
   );
 }

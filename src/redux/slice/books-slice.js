@@ -21,9 +21,6 @@ const bookSlice = createSlice({
       state.bookDetail = action.payload.data;
       state.status = action.payload.status;
     },
-    setSelfLink(state, action) {
-      state.selfLink = action.payload;
-    },
   },
 });
 
@@ -75,6 +72,16 @@ export const getBookDetail = (id) => {
   };
 };
 
-export const { setStatus, getBookSuccess, getBookDetailSuccess, setSelfLink } =
+export const getBooksforSlides = () => {
+  return async (dispatch) => {
+    dispatch(setStatus("loading"));
+    const response = await axios.get(
+      "https://www.googleapis.com/books/v1/volumes?q=language:id"
+    );
+    dispatch(getBookSuccess({ data: response.data.items, status: "success" }));
+  };
+};
+
+export const { setStatus, getBookSuccess, getBookDetailSuccess } =
   bookSlice.actions;
 export default bookSlice.reducer;

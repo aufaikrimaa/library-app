@@ -1,0 +1,11 @@
+.hero {
+  height: 100vh;
+}
+
+.img-swipe {
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3); /* efek bayangan di kanan dan bawah */
+}
+
+.button-read:hover {
+  box-shadow: -5px 10px 15px #c1cffa;
+}
