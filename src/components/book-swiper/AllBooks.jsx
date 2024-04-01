@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getFreeBooks } from "../../redux/slice/books-slice";
+import { getAllBooks } from "../../redux/slice/books-slice";
 import BookCard from "../book-card/BookCard";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -11,13 +11,13 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "./book-swiper.css";
 
-function FreeBookSwiper({ categories }) {
+function AllBooks({}) {
   const dispatch = useDispatch();
   const { books } = useSelector((state) => state.books);
 
   useEffect(() => {
-    dispatch(getFreeBooks(categories));
-  }, [categories, dispatch]);
+    dispatch(getAllBooks());
+  }, []);
 
   console.log(books);
 
@@ -54,4 +54,4 @@ function FreeBookSwiper({ categories }) {
   );
 }
 
-export default FreeBookSwiper;
+export default AllBooks;

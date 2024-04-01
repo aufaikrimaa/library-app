@@ -82,11 +82,11 @@ export const getBooksforSlides = () => {
   };
 };
 
-export const getFreeBooks = () => {
+export const getAllBooks = () => {
   return async (dispatch) => {
     dispatch(setStatus("loading"));
 
-    let freeBooks = [];
+    let allBooks = [];
     let startIndex = 0;
     const maxResults = 40;
 
@@ -95,15 +95,13 @@ export const getFreeBooks = () => {
         `https://www.googleapis.com/books/v1/volumes?q=language:id&startIndex=${startIndex}&maxResults=${maxResults}`
       );
 
-      const filteredFreeBooks = response.data.items.filter(
-        (book) => book.saleInfo && book.saleInfo.saleability === "FREE"
-      );
+      const allBooksItem = response.data.items;
 
-      freeBooks = [...freeBooks, ...filteredFreeBooks];
+      allBooks = [...allBooks, ...allBooksItem];
       startIndex += maxResults;
     }
 
-    dispatch(getBookSuccess({ data: freeBooks, status: "success" }));
+    dispatch(getBookSuccess({ data: allBooks, status: "success" }));
   };
 };
 
