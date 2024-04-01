@@ -82,6 +82,31 @@ export const getBooksforSlides = () => {
   };
 };
 
+export const getFreeBooks = () => {
+  return async (dispatch) => {
+    dispatch(setStatus("loading"));
+
+    let freeBooks = [];
+    let startIndex = 0;
+    const maxResults = 40;
+
+    while (startIndex < 200) {
+      const response = await axios.get(
+        `https://www.googleapis.com/books/v1/volumes?q=language:id&startIndex=${startIndex}&maxResults=${maxResults}`
+      );
+
+      const filteredFreeBooks = response.data.items.filter(
+        (book) => book.saleInfo && book.saleInfo.saleability === "FREE"
+      );
+
+      freeBooks = [...freeBooks, ...filteredFreeBooks];
+      startIndex += maxResults;
+    }
+
+    dispatch(getBookSuccess({ data: freeBooks, status: "success" }));
+  };
+};
+
 export const { setStatus, getBookSuccess, getBookDetailSuccess } =
   bookSlice.actions;
 export default bookSlice.reducer;

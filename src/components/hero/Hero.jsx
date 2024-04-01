@@ -37,10 +37,10 @@ function Hero() {
 
   return (
     <>
-      <div className="hero bg-[#EBEEF6] flex text-[#525E85]">
+      <div className="hero bg-[#EBEEF6] flex text-[#525E85] pt-5">
         <Swiper className="swiper-hero self-center">
           {books.map((item, index) => (
-            <SwiperSlide key={index} className="hero-slide-photos flex pt-5">
+            <SwiperSlide key={index} className="hero-slide-photos flex">
               <div className="basis-1/2 flex justify-center pl-13">
                 <div className="self-center">
                   <div className="text-5xl font-bold mb-4">
