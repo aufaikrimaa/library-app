@@ -53,9 +53,18 @@ function Navbar() {
         <div className=" flex basis-1/2 ">
           <Link to="/" className="logo flex">
             <img src={logo} alt="logo" className="h-6 self-center " />
-            <div className="self-center pl-2 text-3xl mr-5 pb-1">
+            <div className="self-center pl-1 text-3xl mr-5 pb-1">
               au<span className="text-[#8fabff]">Libz</span>
             </div>
+          </Link>
+          <Link
+            to="/"
+            className={`menu mr-5 self-center  text-lg ${
+              activeNav === "/" ? "active" : ""
+            }`}
+            onClick={() => handleNavChange("/")}
+          >
+            Home
           </Link>
           <div
             className={`menu mr-4 self-center flex  text-lg ${
@@ -63,7 +72,7 @@ function Navbar() {
             }`}
             onClick={toggleDropdown}
           >
-            Category
+            Books
             <img
               src={iconDowwn}
               className="h-[10px] ml-0.5 mt-0.5 self-center"
@@ -73,10 +82,9 @@ function Navbar() {
             >
               {isDropdownOpen && (
                 <ul className="z-30 bg-white shadow-lg mt-5 w-[16rem] text-[#525E85]">
-                  <div className="block px-4 py-2 font-bold border-b-2">
-                    Books
+                  <div className="block px-4 py-2 font-bold border-b-2 text-base">
+                    Category
                   </div>
-
                   {bookNav.map((nav, i) => (
                     <li key={i}>
                       <Link
@@ -107,7 +115,7 @@ function Navbar() {
         </div>
         <div className="flex basis-1/2 justify-end">
           <Link to="/saved" className=" mr-4 self-center ">
-            <img src={saved} alt="logo" className="h-6  " />
+            <img src={saved} alt="logo" className="h-[2.5rem]" />
           </Link>
         </div>
       </div>
