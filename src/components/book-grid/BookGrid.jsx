@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { getBooks } from "../../redux/slice/books-slice";
 import BookCard from "../book-card/BookCard";
 import searchIcon from "../../assets/images/search.svg";
+import LoadingBooks from "../loading-books/LoadingBooks";
 
 function BookGrid({ categories }) {
   const dispatch = useDispatch();
-  const { books } = useSelector((state) => state.books);
+  const { books, status } = useSelector((state) => state.books);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
@@ -38,23 +39,29 @@ function BookGrid({ categories }) {
         </div>
       </div>
       <div className="flex flex-wrap justify-center">
-        {filteredBooks && filteredBooks.length > 0 ? (
-          <>
-            {filteredBooks.map((item, index) => (
-              <BookCard
-                key={index}
-                img={item.volumeInfo.imageLinks?.thumbnail}
-                title={item.volumeInfo.title}
-                id={item.id}
-              />
-            ))}
-          </>
+        {status === "loading" ? (
+          <LoadingBooks />
         ) : (
-          <div className="h-[30vh] flex">
-            <p className="self-center font-bold text-[#525E85]">
-              No books found.
-            </p>
-          </div>
+          <>
+            {filteredBooks && filteredBooks.length > 0 ? (
+              <>
+                {filteredBooks.map((item, index) => (
+                  <BookCard
+                    key={index}
+                    img={item.volumeInfo.imageLinks?.thumbnail}
+                    title={item.volumeInfo.title}
+                    id={item.id}
+                  />
+                ))}
+              </>
+            ) : (
+              <div className="h-[30vh] flex">
+                <p className="self-center font-bold text-[#525E85]">
+                  No books found.
+                </p>
+              </div>
+            )}
+          </>
         )}
       </div>
     </>

@@ -10,6 +10,7 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "./book-swiper.css";
+import LoadingBooks from "../loading-books/LoadingBooks";
 
 function AllBooks({}) {
   const dispatch = useDispatch();
@@ -18,8 +19,6 @@ function AllBooks({}) {
   useEffect(() => {
     dispatch(getAllBooks());
   }, []);
-
-  // console.log(allBooks);
 
   return (
     <>
@@ -46,7 +45,11 @@ function AllBooks({}) {
               ))}
             </>
           ) : (
-            <p>Loading...</p>
+            <SwiperSlide>
+              <div className="flex">
+                <LoadingBooks />
+              </div>
+            </SwiperSlide>
           )}
         </Swiper>
       </div>

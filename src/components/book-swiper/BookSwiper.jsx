@@ -10,6 +10,7 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "./book-swiper.css";
+import LoadingBooks from "../loading-books/LoadingBooks";
 
 function BookSwiper({ categories }) {
   const dispatch = useDispatch();
@@ -46,7 +47,11 @@ function BookSwiper({ categories }) {
               ))}
             </>
           ) : (
-            <p>Loading...</p>
+            <SwiperSlide>
+              <div className="flex">
+                <LoadingBooks />
+              </div>
+            </SwiperSlide>
           )}
         </Swiper>
       </div>
