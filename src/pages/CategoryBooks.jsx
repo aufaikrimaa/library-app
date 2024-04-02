@@ -8,6 +8,7 @@ import {
   categoriesE,
 } from "../components/book-category/categoryData";
 import Navbar from "../components/navbar/Navbar";
+import Footer from "../components/footer/Footer";
 
 function CategoryBooks() {
   const { category } = useParams();
@@ -39,9 +40,12 @@ function CategoryBooks() {
     <>
       <Navbar />
       <div className="section">
-        {category}
+        <div className="flex justify-center text-[#525E85] text-3xl font-bold mb-4 pt-18 mb-8">
+          {category}
+        </div>
         <BookGrid categories={selectedCategories} />
       </div>
+      <Footer />
     </>
   );
 }
