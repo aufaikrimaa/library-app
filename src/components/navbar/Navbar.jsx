@@ -114,8 +114,8 @@ function Navbar() {
           </Link>
         </div>
         <div className="flex basis-1/2 justify-end">
-          <Link to="/saved" className=" mr-4 self-center ">
-            <img src={saved} alt="logo" className="h-[2.5rem]" />
+          <Link to="/saved" className="self-center ">
+            <img src={saved} alt="logo" className="h-6" />
           </Link>
         </div>
       </div>
