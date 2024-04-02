@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import books from "../../assets/images/books.png";
 import booksCaseLeft from "../../assets/images/books-case-left.png";
 import booksCaseRight from "../../assets/images/books-case-right.png";
 
@@ -26,10 +25,10 @@ function About() {
         </div>
         <div className="basis-3/5 flex text-center">
           <div className="self-center">
-            <div className="text-[#525E85] text-6xl lg:text-5xl font-bold mb-4">
+            <div className="text-[#525E85] text-6xl lg:text-5xl font-bold mb-5">
               Find Your Favorite Books Here
             </div>
-            <div className="text-[#525E85] text-xl lg:text-lg font-medium mb-4">
+            <div className="text-[#525E85] text-xl lg:text-lg font-medium mb-5">
               <strong className="text-2xl">
                 au<span className="text-[#8fabff]">Libz </span>
               </strong>
@@ -44,7 +43,7 @@ function About() {
                   key={index}
                   className="mx-3 grid justify-items-center w-16"
                 >
-                  <div className="text-5xl  font-medium my-2">{item.count}</div>
+                  <div className="text-5xl font-medium my-2">{item.count}</div>
                   <div className="text-xl font-bold">{item.saleAbility}</div>
                 </div>
               ))}
