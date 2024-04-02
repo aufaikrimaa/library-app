@@ -45,7 +45,7 @@ function Hero() {
             <SwiperSlide key={index} className="hero-slide-photos flex">
               <div className="basis-1/2 flex justify-center pl-13">
                 <div className="self-center">
-                  <div className="text-5xl font-bold mb-4">
+                  <div className="text-5xl font-bold mb-4 leading-[3.4rem]">
                     {item.volumeInfo.title}
                   </div>
                   <div className="text-xl font-medium mb-4">
