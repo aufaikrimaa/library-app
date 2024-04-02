@@ -14,9 +14,9 @@ function Footer() {
         <div className="ml-[10%] px-24 lg:px-20 py-5 flex text-xl lg:text-base">
           <div className="basis-1/3 grid gap-1">
             <div>Home</div>
-            <div>Contact Us</div>
+            <div>Contact us</div>
             <div>Term of Service</div>
-            <div>About Us</div>
+            <div>About us</div>
           </div>
           <div className="basis-1/3 grid gap-1">
             <div>Live</div>

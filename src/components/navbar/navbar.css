@@ -37,3 +37,16 @@
 .menu.active::before {
   transform: scaleX(1);
 }
+
+.dropdown {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.dropdown.open {
+  opacity: 1;
+  max-height: 500px;
+  transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
+}

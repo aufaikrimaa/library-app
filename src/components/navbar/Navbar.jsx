@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/images/logo-books.svg";
 import iconDowwn from "../../assets/images/icon-down.svg";
+import saved from "../../assets/images/saved.svg";
 import "./navbar.css";
 
 function Navbar() {
@@ -49,73 +50,66 @@ function Navbar() {
         ref={navbarRef}
         className="section navbar flex fixed z-20 cursor-pointer text-[#525E85] font-bold"
       >
-        <div className="logo flex basis-1/4 ">
-          <img src={logo} alt="logo" className="h-6 self-center " />
-          <div className="self-center pl-2 text-3xl">
-            au<span className="text-[#8fabff]">Libz</span>
-          </div>
-        </div>
-        <div className="flex basis-3/4 justify-end text-xl">
-          <Link
-            to="/"
-            className={`menu mr-5 self-center ${
-              activeNav === "/" ? "active" : ""
-            }`}
-            onClick={() => handleNavChange("/")}
-          >
-            Home
+        <div className=" flex basis-1/2 ">
+          <Link to="/" className="logo flex">
+            <img src={logo} alt="logo" className="h-6 self-center " />
+            <div className="self-center pl-2 text-3xl mr-5 pb-1">
+              au<span className="text-[#8fabff]">Libz</span>
+            </div>
           </Link>
           <div
-            className={`menu mr-4 self-center flex ${
+            className={`menu mr-4 self-center flex  text-lg ${
               activeNav.includes("/books") ? "active" : ""
             }`}
             onClick={toggleDropdown}
           >
-            Books
+            Category
             <img
               src={iconDowwn}
               className="h-[10px] ml-0.5 mt-0.5 self-center"
             />
+            <div
+              className={`dropdown z-10 fixed ${isDropdownOpen ? "open" : ""}`}
+            >
+              {isDropdownOpen && (
+                <ul className="z-30 bg-white shadow-lg mt-5 w-[16rem] text-[#525E85]">
+                  <div className="block px-4 py-2 font-bold border-b-2">
+                    Books
+                  </div>
+
+                  {bookNav.map((nav, i) => (
+                    <li key={i}>
+                      <Link
+                        to={`/books/${nav}`}
+                        className="block px-4 py-2 hover:bg-gray-200 font-normal text-base"
+                        onClick={() => {
+                          setIsDropdownOpen(false);
+                          handleNavChange(`/books/${nav}`);
+                        }}
+                      >
+                        {nav}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
           <Link
-            to="/saved"
-            className={`menu mr-4 self-center ${
-              activeNav === "/saved" ? "active" : ""
+            to="/all-books"
+            className={`menu mr-5 self-center  text-lg ${
+              activeNav === "/all-books" ? "active" : ""
             }`}
-            onClick={() => handleNavChange("/saved")}
+            onClick={() => handleNavChange("/all-books")}
           >
-            Saved
+            All Books
           </Link>
         </div>
-      </div>
-      <div className="dropdown z-10 fixed ml-[82%]">
-        {isDropdownOpen && (
-          <ul className="z-30 bg-white shadow-lg mt-11 w-[16rem] mr-24 text-[#525E85]">
-            <div className="block px-4 py-2 font-bold border-b-2">Category</div>
-            <li>
-              <Link
-                to="/all-books"
-                className="block px-4 py-2 hover:bg-gray-200"
-              >
-                All Books
-              </Link>
-            </li>
-            {bookNav.map((nav, i) => (
-              <li key={i}>
-                <Link
-                  to={`/books/${nav}`}
-                  className="block px-4 py-2 hover:bg-gray-200"
-                  onClick={() => {
-                    setIsDropdownOpen(false);
-                    handleNavChange(`/books/${nav}`);
-                  }}
-                >
-                  {nav}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
+        <div className="flex basis-1/2 justify-end">
+          <Link to="/saved" className=" mr-4 self-center ">
+            <img src={saved} alt="logo" className="h-6  " />
+          </Link>
+        </div>
       </div>
     </>
   );
