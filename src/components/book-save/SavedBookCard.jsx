@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import ButtonSaveBook from "./ButtonSaveBook";
 import { useState, useEffect } from "react";
 
-function SavedBookCard({ img, title, id, author, book }) {
+function SavedBookCard({ img, title, id, author, book, updateSavedBooks }) {
   const [isSaved, setIsSaved] = useState(false);
   useEffect(() => {
     const savedBooks = JSON.parse(localStorage.getItem("savedBooks") || "[]");
@@ -45,6 +45,7 @@ function SavedBookCard({ img, title, id, author, book }) {
                 bookDetail={book}
                 isSaved={isSaved}
                 setIsSaved={setIsSaved}
+                updateSavedBooks={updateSavedBooks}
                 styleIcon={"h-3 self-center pr-0.5"}
                 styleButton={
                   "cursor-pointer button-read border border-2 lg:border-[1.5px] rounded-lg border-[#525E85] font-bold flex justify-center py-0.5"

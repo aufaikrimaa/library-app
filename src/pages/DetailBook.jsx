@@ -11,6 +11,7 @@ function DetailBook() {
   const dispatch = useDispatch();
   const { bookDetail, status } = useSelector((state) => state.books);
   const [isSaved, setIsSaved] = useState(false);
+  const [savedBooks, setSavedBooks] = useState([]);
 
   useEffect(() => {
     dispatch(getBookDetail(id));
@@ -18,8 +19,6 @@ function DetailBook() {
     const isBookSaved = savedBooks.some((book) => book.id === id);
     setIsSaved(isBookSaved);
   }, [id]);
-
-  // console.log(bookDetail);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -37,6 +36,10 @@ function DetailBook() {
 
   const buttonLink = (link) => {
     return window.open(link, "_blank");
+  };
+
+  const updateSavedBooks = (updatedBooks) => {
+    setSavedBooks(updatedBooks);
   };
 
   return (
@@ -135,6 +138,7 @@ function DetailBook() {
                     bookDetail={bookDetail}
                     isSaved={isSaved}
                     setIsSaved={setIsSaved}
+                    updateSavedBooks={updateSavedBooks}
                     styleIcon={"h-3.5 self-center pr-0.5"}
                     styleButton={
                       "cursor-pointer button-read border border-2 rounded-lg border-[#525E85] font-bold w-24 flex justify-center py-1"

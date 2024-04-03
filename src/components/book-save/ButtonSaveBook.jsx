@@ -7,12 +7,14 @@ function ButtonSaveBook({
   isSaved,
   setIsSaved,
   styleIcon,
+  updateSavedBooks,
 }) {
   const handleSave = () => {
     let savedBooks = JSON.parse(localStorage.getItem("savedBooks") || "[]");
     savedBooks = [...savedBooks, bookDetail];
     localStorage.setItem("savedBooks", JSON.stringify(savedBooks));
     setIsSaved(true);
+    updateSavedBooks(savedBooks);
   };
 
   const handleUnsave = (id) => {
@@ -20,6 +22,7 @@ function ButtonSaveBook({
     const updatedSavedBooks = savedBooks.filter((book) => book.id !== id);
     localStorage.setItem("savedBooks", JSON.stringify(updatedSavedBooks));
     setIsSaved(false);
+    updateSavedBooks(updatedSavedBooks);
   };
 
   return (
