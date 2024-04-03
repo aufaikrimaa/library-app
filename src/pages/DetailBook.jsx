@@ -1,18 +1,22 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getBookDetail } from "../redux/slice/books-slice";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
-import unsave from "../assets/images/unsave.svg";
+import ButtonSaveBook from "../components/book-save/ButtonSaveBook";
 
 function DetailBook() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { bookDetail, status } = useSelector((state) => state.books);
+  const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
     dispatch(getBookDetail(id));
+    const savedBooks = JSON.parse(localStorage.getItem("savedBooks") || "[]");
+    const isBookSaved = savedBooks.some((book) => book.id === id);
+    setIsSaved(isBookSaved);
   }, [id]);
 
   // console.log(bookDetail);
@@ -47,11 +51,17 @@ function DetailBook() {
                   {bookDetail.volumeInfo.title}
                 </div>
                 <div className="font-medium text-lg text-[#8fabff] mb-0.5">
-                  {bookDetail.volumeInfo.authors.length > 1
-                    ? "Authors: "
-                    : "Author: "}
-                  {bookDetail.volumeInfo.authors &&
-                    bookDetail.volumeInfo.authors.join(", ")}
+                  {bookDetail.volumeInfo.authors ? (
+                    <>
+                      {bookDetail.volumeInfo.authors.length > 1
+                        ? "Authors: "
+                        : "Author: "}
+                      {bookDetail.volumeInfo.authors &&
+                        bookDetail.volumeInfo.authors.join(", ")}
+                    </>
+                  ) : (
+                    <></>
+                  )}
                 </div>
                 <div className="text-sm mb-3">
                   {bookDetail.volumeInfo.publishedDate
@@ -121,10 +131,15 @@ function DetailBook() {
                       </div>
                     )}
                   </div>
-                  <div className="cursor-pointer button-read border border-2 rounded-lg border-[#525E85] font-bold w-24 flex justify-center py-1">
-                    <img src={unsave} className="h-3.5 self-center pr-0.5" />
-                    Save
-                  </div>
+                  <ButtonSaveBook
+                    bookDetail={bookDetail}
+                    isSaved={isSaved}
+                    setIsSaved={setIsSaved}
+                    styleIcon={"h-3.5 self-center pr-0.5"}
+                    styleButton={
+                      "cursor-pointer button-read border border-2 rounded-lg border-[#525E85] font-bold w-24 flex justify-center py-1"
+                    }
+                  />
                 </div>
               </div>
               <div className="basis-1/3 grid justify-items-center">

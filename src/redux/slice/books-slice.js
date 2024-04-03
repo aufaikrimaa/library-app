@@ -74,15 +74,7 @@ export const getBooks = (categories) => {
 };
 
 export const getBookDetail = (id) => {
-  return async (dispatch, getState) => {
-    const cachedBookDetail = getState().books.bookDetail;
-
-    if (Object.keys(cachedBookDetail).length !== 0) {
-      dispatch(
-        getBookDetailSuccess({ data: cachedBookDetail, status: "success" })
-      );
-    }
-
+  return async (dispatch) => {
     dispatch(setStatus("loading"));
 
     try {

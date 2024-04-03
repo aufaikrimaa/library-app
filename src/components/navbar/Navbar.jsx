@@ -10,6 +10,7 @@ function Navbar() {
   const location = useLocation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [activeNav, setActiveNav] = useState(location.pathname);
+  const [countSave, setCountSave] = useState(null);
 
   const bookNav = [
     "Business & Economics",
@@ -43,6 +44,14 @@ function Navbar() {
   const handleNavChange = (menu) => {
     setActiveNav(menu);
   };
+
+  useEffect(() => {
+    const savedBooks = JSON.parse(localStorage.getItem("savedBooks") || "[]");
+    const countSaved = savedBooks.length;
+    setCountSave(countSaved);
+  });
+
+  // console.log(countSave);
 
   return (
     <>
@@ -114,8 +123,15 @@ function Navbar() {
           </Link>
         </div>
         <div className="flex basis-1/2 justify-end">
-          <Link to="/saved" className="self-center ">
-            <img src={saved} alt="logo" className="h-6" />
+          <Link to="/saved" className="self-center grid">
+            {countSave ? (
+              <div className="absolute justify-self-end rounded-full bg-[#525E85] w-3.5 h-3.5 text-white flex justify-center">
+                <div className="self-center text-xs">{countSave}</div>
+              </div>
+            ) : (
+              <></>
+            )}
+            <img src={saved} alt="logo" className="mt-0.5 h-6" />
           </Link>
         </div>
       </div>
