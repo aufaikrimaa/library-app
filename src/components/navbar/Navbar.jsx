@@ -81,12 +81,12 @@ function Navbar() {
               className={`dropdown z-10 fixed ${isDropdownOpen ? "open" : ""}`}
             >
               {isDropdownOpen && (
-                <ul className="z-30 bg-white shadow-lg mt-5 w-[16rem] text-[#525E85]">
+                <div className="z-30 bg-white shadow-lg mt-5 w-[16rem] text-[#525E85]">
                   <div className="block px-4 py-2 font-bold border-b-2 text-base">
                     Category
                   </div>
                   {bookNav.map((nav, i) => (
-                    <li key={i}>
+                    <div key={i}>
                       <Link
                         to={`/books/${nav}`}
                         className="block px-4 py-2 hover:bg-gray-200 font-normal text-base"
@@ -97,9 +97,9 @@ function Navbar() {
                       >
                         {nav}
                       </Link>
-                    </li>
+                    </div>
                   ))}
-                </ul>
+                </div>
               )}
             </div>
           </div>
