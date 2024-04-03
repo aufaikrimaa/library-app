@@ -4,11 +4,12 @@ import { useParams } from "react-router-dom";
 import { getBookDetail } from "../redux/slice/books-slice";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
+import unsave from "../assets/images/unsave.svg";
 
 function DetailBook() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { bookDetail } = useSelector((state) => state.books);
+  const { bookDetail, status } = useSelector((state) => state.books);
 
   useEffect(() => {
     dispatch(getBookDetail(id));
@@ -53,11 +54,13 @@ function DetailBook() {
                     bookDetail.volumeInfo.authors.join(", ")}
                 </div>
                 <div className="text-sm mb-3">
-                  {formatDate(bookDetail.volumeInfo.publishedDate)} -{" "}
-                  {bookDetail.volumeInfo.publisher}
+                  {bookDetail.volumeInfo.publishedDate
+                    ? `${formatDate(bookDetail.volumeInfo.publishedDate)}`
+                    : "eBook"}{" "}
+                  - {bookDetail.volumeInfo.publisher}
                 </div>
                 <div className="text-base font-medium text-justify">
-                  <div>About this book:</div>
+                  <div className="font-bold text-lg">About this book:</div>
                   {bookDetail.volumeInfo.description ? (
                     <div
                       dangerouslySetInnerHTML={{
@@ -68,7 +71,7 @@ function DetailBook() {
                     <div>{bookDetail.volumeInfo.subtitle}</div>
                   )}
                 </div>
-                <div className="h-12 flex items-center font-bold">
+                <div className="h-18 flex items-center font-bold text-lg">
                   <div className="px-2">
                     {bookDetail.saleInfo.saleability === "FREE"
                       ? "Free book"
@@ -90,7 +93,7 @@ function DetailBook() {
                   </div>
                 </div>
                 <div className="flex">
-                  <div className="cursor-pointer  rounded-lg bg-[#525E85] text-white font-bold mr-2 hover:bg-white hover:text-[#525E85] border border-2 hover:border-[#525E85]">
+                  <div className="cursor-pointer button-read rounded-lg bg-[#525E85] text-white font-bold mr-2 hover:bg-white hover:text-[#525E85] border border-2 hover:border-[#525E85]">
                     {bookDetail.saleInfo.saleability === "FREE" ? (
                       <div
                         className="py-1 flex justify-center w-24"
@@ -118,7 +121,8 @@ function DetailBook() {
                       </div>
                     )}
                   </div>
-                  <div className="cursor-pointer border border-2 rounded-lg border-[#525E85]  w-24 flex justify-center py-1">
+                  <div className="cursor-pointer button-read border border-2 rounded-lg border-[#525E85] font-bold w-24 flex justify-center py-1">
+                    <img src={unsave} className="h-3.5 self-center pr-0.5" />
                     Save
                   </div>
                 </div>
