@@ -5,7 +5,7 @@ const bookSlice = createSlice({
   name: "books",
   initialState: {
     books: {},
-    allBooks: {},
+    allBooks: [],
     eduBooks: [],
     fictionBooks: [],
     bookSlide: [],
@@ -113,16 +113,16 @@ export const getBooksforSlides = () => {
     dispatch(setStatus("loading"));
 
     let bookSlide = [];
-    let startIndex = 0;
-    const maxResults = 40;
+    let startIndex = 20;
+    const maxResults = 10;
 
-    while (startIndex < 80) {
+    while (startIndex < 50) {
       const response = await axios.get(
-        `https://www.googleapis.com/books/v1/volumes?q=harry+potter+fiction+Magic+Mystery&startIndex=${startIndex}&maxResults=${maxResults}`
+        `https://www.googleapis.com/books/v1/volumes?q=fiction+Magic+Mystery&startIndex=${startIndex}&maxResults=${maxResults}`
       );
 
       const filteredBooks = response.data.items.filter(
-        (book) => book.volumeInfo.imageLinks
+        (book) => book.volumeInfo.imageLinks && book.volumeInfo.subtitle
       );
 
       bookSlide = [...bookSlide, ...filteredBooks];
