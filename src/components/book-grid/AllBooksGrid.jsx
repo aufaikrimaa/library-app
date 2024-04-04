@@ -1,21 +1,31 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllBooks } from "../../redux/slice/books-slice";
+import {
+  getAllBooks,
+  getEduBooks,
+  getFictionBooks,
+} from "../../redux/slice/books-slice";
 import BookCard from "../book-card/BookCard";
 import searchIcon from "../../assets/images/search.svg";
 import LoadingBooks from "../loading-books/LoadingBooks";
 
 function AllBooksGrid() {
   const dispatch = useDispatch();
-  const { allBooks, status } = useSelector((state) => state.books);
+  const { allBooks, fictionBooks, eduBooks, status } = useSelector(
+    (state) => state.books
+  );
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
+    dispatch(getFictionBooks());
+    dispatch(getEduBooks());
     dispatch(getAllBooks());
   }, [dispatch]);
 
-  const filteredBooks = Array.isArray(allBooks)
-    ? allBooks.filter((book) =>
+  const books = [...fictionBooks, ...eduBooks, ...allBooks];
+
+  const filteredBooks = Array.isArray(books)
+    ? books.filter((book) =>
         book.volumeInfo.title.toLowerCase().includes(searchTerm.toLowerCase())
       )
     : [];

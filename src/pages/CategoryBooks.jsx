@@ -3,7 +3,6 @@ import BookGrid from "../components/book-grid/BookGrid";
 import {
   categoriesA,
   categoriesB,
-  categoriesC,
   categoriesD,
   categoriesE,
 } from "../components/book-category/categoryData";
@@ -21,9 +20,6 @@ function CategoryBooks() {
       break;
     case "Computers & Technology":
       selectedCategories = categoriesB;
-      break;
-    case "Education & Knowledge":
-      selectedCategories = categoriesC;
       break;
     case "Language, Linguistics & Arts":
       selectedCategories = categoriesD;

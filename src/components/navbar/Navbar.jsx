@@ -13,9 +13,10 @@ function Navbar() {
   // const [countSave, setCountSave] = useState(null);
 
   const bookNav = [
+    "Education & Knowledge",
+    "Fiction",
     "Business & Economics",
     "Computers & Technology",
-    "Education & Knowledge",
     "Language, Linguistics & Arts",
     "Law & Legal Issues",
   ];

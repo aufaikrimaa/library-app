@@ -6,6 +6,8 @@ const bookSlice = createSlice({
   initialState: {
     books: {},
     allBooks: {},
+    eduBooks: [],
+    fictionBooks: [],
     bookSlide: [],
     bookDetail: {},
     status: "",
@@ -29,6 +31,14 @@ const bookSlice = createSlice({
     },
     getAllBookSuccess(state, action) {
       state.allBooks = action.payload.data;
+      state.status = action.payload.status;
+    },
+    getEduBookSuccess(state, action) {
+      state.eduBooks = action.payload.data;
+      state.status = action.payload.status;
+    },
+    getFictionBookSuccess(state, action) {
+      state.fictionBooks = action.payload.data;
       state.status = action.payload.status;
     },
   },
@@ -97,13 +107,29 @@ export const getBooksforSlides = () => {
 
     if (Object.keys(cachedBookSlide).length !== 0) {
       dispatch(getBookSlide({ data: cachedBookSlide, status: "success" }));
+      return;
     }
 
     dispatch(setStatus("loading"));
-    const response = await axios.get(
-      "https://www.googleapis.com/books/v1/volumes?q=language:id"
-    );
-    dispatch(getBookSlide({ data: response.data.items, status: "success" }));
+
+    let bookSlide = [];
+    let startIndex = 0;
+    const maxResults = 40;
+
+    while (startIndex < 80) {
+      const response = await axios.get(
+        `https://www.googleapis.com/books/v1/volumes?q=harry+potter+fiction+Magic+Mystery&startIndex=${startIndex}&maxResults=${maxResults}`
+      );
+
+      const filteredBooks = response.data.items.filter(
+        (book) => book.volumeInfo.imageLinks
+      );
+
+      bookSlide = [...bookSlide, ...filteredBooks];
+      startIndex += maxResults;
+    }
+
+    dispatch(getBookSlide({ data: bookSlide, status: "success" }));
   };
 };
 
@@ -122,7 +148,7 @@ export const getAllBooks = () => {
     let startIndex = 0;
     const maxResults = 40;
 
-    while (startIndex < 201) {
+    while (startIndex < 100) {
       const response = await axios.get(
         `https://www.googleapis.com/books/v1/volumes?q=language:id&startIndex=${startIndex}&maxResults=${maxResults}`
       );
@@ -137,11 +163,75 @@ export const getAllBooks = () => {
   };
 };
 
+export const getEduBooks = () => {
+  return async (dispatch, getState) => {
+    const cachedAllBooks = getState().books.eduBooks;
+
+    if (Object.keys(cachedAllBooks).length !== 0) {
+      dispatch(getAllBookSuccess({ data: cachedAllBooks, status: "success" }));
+      return;
+    }
+
+    dispatch(setStatus("loading"));
+
+    let eduBooks = [];
+    let startIndex = 0;
+    const maxResults = 40;
+
+    while (startIndex < 80) {
+      const response = await axios.get(
+        `https://www.googleapis.com/books/v1/volumes?q=education+knowledge&startIndex=${startIndex}&maxResults=${maxResults}`
+      );
+
+      const eduBooksItem = response.data.items;
+
+      eduBooks = [...eduBooks, ...eduBooksItem];
+      startIndex += maxResults;
+    }
+
+    dispatch(getEduBookSuccess({ data: eduBooks, status: "success" }));
+  };
+};
+
+export const getFictionBooks = () => {
+  return async (dispatch, getState) => {
+    const cachedAllBooks = getState().books.fictionBooks;
+
+    if (Object.keys(cachedAllBooks).length !== 0) {
+      dispatch(getAllBookSuccess({ data: cachedAllBooks, status: "success" }));
+      return;
+    }
+
+    dispatch(setStatus("loading"));
+
+    let fictionBooks = [];
+    let startIndex = 0;
+    const maxResults = 40;
+
+    while (startIndex < 80) {
+      const response = await axios.get(
+        `https://www.googleapis.com/books/v1/volumes?q=harry+potter+fiction+Magic+Mystery&startIndex=${startIndex}&maxResults=${maxResults}`
+      );
+
+      const filteredBooks = response.data.items.filter(
+        (book) => book.volumeInfo.imageLinks
+      );
+
+      fictionBooks = [...fictionBooks, ...filteredBooks];
+      startIndex += maxResults;
+    }
+
+    dispatch(getFictionBookSuccess({ data: fictionBooks, status: "success" }));
+  };
+};
+
 export const {
   setStatus,
   getBookSuccess,
   getBookDetailSuccess,
   getBookSlide,
   getAllBookSuccess,
+  getEduBookSuccess,
+  getFictionBookSuccess,
 } = bookSlice.actions;
 export default bookSlice.reducer;

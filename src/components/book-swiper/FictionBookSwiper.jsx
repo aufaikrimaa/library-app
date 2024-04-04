@@ -1,10 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getAllBooks,
-  getEduBooks,
-  getFictionBooks,
-} from "../../redux/slice/books-slice";
+import { getFictionBooks } from "../../redux/slice/books-slice";
 import BookCard from "../book-card/BookCard";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -16,19 +12,13 @@ import "swiper/css/navigation";
 import "./book-swiper.css";
 import LoadingBooks from "../loading-books/LoadingBooks";
 
-function AllBooks({}) {
+function FictionBookSwiper() {
   const dispatch = useDispatch();
-  const { allBooks, fictionBooks, eduBooks } = useSelector(
-    (state) => state.books
-  );
+  const { fictionBooks } = useSelector((state) => state.books);
 
   useEffect(() => {
     dispatch(getFictionBooks());
-    dispatch(getEduBooks());
-    dispatch(getAllBooks());
-  }, []);
-
-  const books = [...fictionBooks, ...eduBooks, ...allBooks];
+  }, [dispatch]);
 
   return (
     <>
@@ -39,11 +29,11 @@ function AllBooks({}) {
           slidesPerView={6}
           navigation={true}
           modules={[FreeMode, Navigation]}
-          className="swiper-allBooks"
+          className="swiper-books"
         >
-          {books && books.length > 0 ? (
+          {fictionBooks && fictionBooks.length > 0 ? (
             <>
-              {books.map((item, index) => (
+              {fictionBooks.map((item, index) => (
                 <SwiperSlide key={index}>
                   <BookCard
                     key={index}
@@ -67,4 +57,4 @@ function AllBooks({}) {
   );
 }
 
-export default AllBooks;
+export default FictionBookSwiper;
