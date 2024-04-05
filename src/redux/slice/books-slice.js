@@ -79,7 +79,24 @@ export const getBooks = (categories) => {
           )
       );
 
-      allBooks = [...allBooks, ...filteredBooks];
+      const booksItem = filteredBooks.map((item) => {
+        const thumbnail = item.volumeInfo.imageLinks?.thumbnail
+          ? item.volumeInfo.imageLinks.thumbnail.replace("http://", "https://")
+          : null;
+
+        return {
+          ...item,
+          volumeInfo: {
+            ...item.volumeInfo,
+            imageLinks: {
+              ...item.volumeInfo.imageLinks,
+              thumbnail,
+            },
+          },
+        };
+      });
+
+      allBooks = [...allBooks, ...booksItem];
       startIndex += maxResults;
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -98,9 +115,23 @@ export const getBookDetail = (id) => {
         `https://www.googleapis.com/books/v1/volumes/${id}`
       );
 
-      dispatch(
-        getBookDetailSuccess({ data: response.data, status: "success" })
-      );
+      const item = response.data;
+      const thumbnail = item.volumeInfo.imageLinks?.thumbnail
+        ? item.volumeInfo.imageLinks.thumbnail.replace("http://", "https://")
+        : null;
+
+      const updatedBook = {
+        ...item,
+        volumeInfo: {
+          ...item.volumeInfo,
+          imageLinks: {
+            ...item.volumeInfo.imageLinks,
+            thumbnail,
+          },
+        },
+      };
+
+      dispatch(getBookDetailSuccess({ data: updatedBook, status: "success" }));
     } catch (error) {
       dispatch(setStatus("error"));
     }
@@ -122,7 +153,7 @@ export const getBooksforSlides = () => {
     let startIndex = 20;
     const maxResults = 10;
 
-    while (startIndex < 50) {
+    while (startIndex < 32) {
       const response = await axios.get(
         `https://www.googleapis.com/books/v1/volumes?q=fiction+Magic+Mystery&startIndex=${startIndex}&maxResults=${maxResults}`
       );
@@ -131,7 +162,24 @@ export const getBooksforSlides = () => {
         (book) => book.volumeInfo.imageLinks && book.volumeInfo.subtitle
       );
 
-      bookSlide = [...bookSlide, ...filteredBooks];
+      const slidesBooksItem = filteredBooks.map((item) => {
+        const thumbnail = item.volumeInfo.imageLinks?.thumbnail
+          ? item.volumeInfo.imageLinks.thumbnail.replace("http://", "https://")
+          : null;
+
+        return {
+          ...item,
+          volumeInfo: {
+            ...item.volumeInfo,
+            imageLinks: {
+              ...item.volumeInfo.imageLinks,
+              thumbnail,
+            },
+          },
+        };
+      });
+
+      bookSlide = [...bookSlide, ...slidesBooksItem];
       startIndex += maxResults;
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -161,7 +209,22 @@ export const getAllBooks = () => {
         `https://www.googleapis.com/books/v1/volumes?q=language:id&startIndex=${startIndex}&maxResults=${maxResults}`
       );
 
-      const allBooksItem = response.data.items;
+      const allBooksItem = response.data.items.map((item) => {
+        const thumbnail = item.volumeInfo.imageLinks?.thumbnail
+          ? item.volumeInfo.imageLinks.thumbnail.replace("http://", "https://")
+          : null;
+
+        return {
+          ...item,
+          volumeInfo: {
+            ...item.volumeInfo,
+            imageLinks: {
+              ...item.volumeInfo.imageLinks,
+              thumbnail,
+            },
+          },
+        };
+      });
 
       allBooks = [...allBooks, ...allBooksItem];
       startIndex += maxResults;
@@ -193,13 +256,23 @@ export const getEduBooks = () => {
         `https://www.googleapis.com/books/v1/volumes?q=education+knowledge&startIndex=${startIndex}&maxResults=${maxResults}`
       );
 
-      const eduBooksItem = response.data.items.map((item) => ({
-        ...item,
-        volumeInfo: {
-          ...item.volumeInfo,
-          categories: ["Education"],
-        },
-      }));
+      const eduBooksItem = response.data.items.map((item) => {
+        const thumbnail = item.volumeInfo.imageLinks?.thumbnail
+          ? item.volumeInfo.imageLinks.thumbnail.replace("http://", "https://")
+          : null;
+
+        return {
+          ...item,
+          volumeInfo: {
+            ...item.volumeInfo,
+            imageLinks: {
+              ...item.volumeInfo.imageLinks,
+              thumbnail,
+            },
+            categories: ["Education"],
+          },
+        };
+      });
 
       eduBooks = [...eduBooks, ...eduBooksItem];
       startIndex += maxResults;
@@ -235,7 +308,25 @@ export const getFictionBooks = () => {
         (book) => book.volumeInfo.imageLinks
       );
 
-      fictionBooks = [...fictionBooks, ...filteredBooks];
+      const fictionBooksItem = filteredBooks.map((item) => {
+        const thumbnail = item.volumeInfo.imageLinks?.thumbnail
+          ? item.volumeInfo.imageLinks.thumbnail.replace("http://", "https://")
+          : null;
+
+        return {
+          ...item,
+          volumeInfo: {
+            ...item.volumeInfo,
+            imageLinks: {
+              ...item.volumeInfo.imageLinks,
+              thumbnail,
+            },
+            categories: ["Fiction"],
+          },
+        };
+      });
+
+      fictionBooks = [...fictionBooks, ...fictionBooksItem];
       startIndex += maxResults;
 
       await new Promise((resolve) => setTimeout(resolve, 1000));

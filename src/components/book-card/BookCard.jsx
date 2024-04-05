@@ -4,12 +4,12 @@ function BookCard({ img, title, id }) {
   return (
     <>
       <Link to={`/book/${id}`}>
-        <div className="h-[19rem] w-[14rem] pt-2 hover:bg-gray-200 cursor-pointer">
+        <div className="h-[19rem] w-[14rem] pt-2 hover:bg-gray-200 cursor-pointer text-[#525E85]">
           <div className="h-[13rem] flex justify-center items-center">
             {img ? (
               <img src={img} alt={title} className="self-center" />
             ) : (
-              <div className="text-center  bg-gray-300 py-5 mx-6">{title}</div>
+              <div className="text-center bg-gray-300 py-5 mx-6">{title}</div>
             )}
           </div>
           <div className="flex justify-center text-center">

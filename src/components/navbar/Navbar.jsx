@@ -17,7 +17,7 @@ function Navbar() {
     "Fiction",
     "Business & Economics",
     "Computers & Technology",
-    "Language, Linguistics & Arts",
+    "Language & Linguistics",
     "Law & Legal Issues",
   ];
 

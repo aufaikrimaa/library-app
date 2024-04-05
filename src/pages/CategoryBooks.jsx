@@ -29,7 +29,7 @@ function CategoryBooks() {
     case "Computers & Technology":
       selectedCategories = categoriesB;
       break;
-    case "Language, Linguistics & Arts":
+    case "Language & Linguistics":
       selectedCategories = categoriesD;
       break;
     case "Law & Legal Issues":

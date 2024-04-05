@@ -25,7 +25,7 @@ function Home() {
       category: categoriesB,
     },
     {
-      title: "Language, Linguistics & Arts",
+      title: "Language & Linguistics",
       category: categoriesD,
     },
     {
