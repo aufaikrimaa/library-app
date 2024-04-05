@@ -66,7 +66,7 @@ function Hero() {
               <div className="basis-1/2 flex justify-center ">
                 <div className="h-[30rem] flex">
                   <img
-                    src={item.volumeInfo.imageLinks?.smallThumbnail}
+                    src={item.volumeInfo.imageLinks?.thumbnail}
                     alt={`image ${index}`}
                     className="img-swipe self-center h-[18rem]"
                   />
