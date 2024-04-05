@@ -22,6 +22,8 @@ function BookSwiper({ categories }) {
 
   const categoryKey = categories.join(",");
 
+  // console.log(books);
+
   return (
     <>
       <div className="section">

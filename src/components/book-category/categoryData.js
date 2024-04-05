@@ -18,23 +18,7 @@ const categoriesB = [
   "Telecommunication",
 ];
 
-const categoriesC = [
-  "Education",
-  "Social Science",
-  "Encyclopedias and dictionaries",
-  "Anthropology",
-  "Developmentally disabled",
-  "Asia",
-  "British Columbia",
-  "African Americans",
-  "Religion",
-  "Philosophy",
-  "Travel",
-  "Electronic journals",
-  "Indians",
-  "History",
-  "Energy conservation",
-];
+const categoriesC = ["Education"];
 
 const categoriesD = [
   "Language Arts & Disciplines",

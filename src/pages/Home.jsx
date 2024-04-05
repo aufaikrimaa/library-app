@@ -51,7 +51,7 @@ function Home() {
             <div className="text-2xl font-bold">Education & Knowledge</div>
             <div className=" w-[12%] lg:w-[13%]">
               <Link
-                to={`/`}
+                to="/books/Education & Knowledge"
                 className="button-view bg-white py-0.5 border-2 border-[#c1cffa] hover:bg-[#c1cffa] flex justify-center rounded-full font-bold text-xl lg:text-lg cursor-pointer "
               >
                 view more➡️
@@ -67,7 +67,7 @@ function Home() {
             <div className="text-2xl font-bold">Fiction</div>
             <div className=" w-[12%] lg:w-[13%]">
               <Link
-                to={`/`}
+                to="/books/Fiction"
                 className="button-view bg-white py-0.5 border-2 border-[#c1cffa] hover:bg-[#c1cffa] flex justify-center rounded-full font-bold text-xl lg:text-lg cursor-pointer "
               >
                 view more➡️

@@ -4,7 +4,7 @@ import axios from "axios";
 const bookSlice = createSlice({
   name: "books",
   initialState: {
-    books: {},
+    books: [],
     allBooks: [],
     eduBooks: [],
     fictionBooks: [],
@@ -18,9 +18,13 @@ const bookSlice = createSlice({
     },
     getBookSuccess(state, action) {
       const { data, categories } = action.payload;
-      state.books[categories.join(",")] = data;
+      state.books = {
+        ...state.books,
+        [categories.join(",")]: data,
+      };
       state.status = action.payload.status;
     },
+
     getBookDetailSuccess(state, action) {
       state.bookDetail = action.payload.data;
       state.status = action.payload.status;
@@ -183,7 +187,13 @@ export const getEduBooks = () => {
         `https://www.googleapis.com/books/v1/volumes?q=education+knowledge&startIndex=${startIndex}&maxResults=${maxResults}`
       );
 
-      const eduBooksItem = response.data.items;
+      const eduBooksItem = response.data.items.map((item) => ({
+        ...item,
+        volumeInfo: {
+          ...item.volumeInfo,
+          categories: ["Education"],
+        },
+      }));
 
       eduBooks = [...eduBooks, ...eduBooksItem];
       startIndex += maxResults;
