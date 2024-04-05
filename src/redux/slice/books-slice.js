@@ -81,6 +81,8 @@ export const getBooks = (categories) => {
 
       allBooks = [...allBooks, ...filteredBooks];
       startIndex += maxResults;
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
     }
 
     dispatch(getBookSuccess({ data: allBooks, categories, status: "success" }));
@@ -131,6 +133,8 @@ export const getBooksforSlides = () => {
 
       bookSlide = [...bookSlide, ...filteredBooks];
       startIndex += maxResults;
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
     }
 
     dispatch(getBookSlide({ data: bookSlide, status: "success" }));
@@ -161,6 +165,8 @@ export const getAllBooks = () => {
 
       allBooks = [...allBooks, ...allBooksItem];
       startIndex += maxResults;
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
     }
 
     dispatch(getAllBookSuccess({ data: allBooks, status: "success" }));
@@ -197,6 +203,8 @@ export const getEduBooks = () => {
 
       eduBooks = [...eduBooks, ...eduBooksItem];
       startIndex += maxResults;
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
     }
 
     dispatch(getEduBookSuccess({ data: eduBooks, status: "success" }));
@@ -229,6 +237,8 @@ export const getFictionBooks = () => {
 
       fictionBooks = [...fictionBooks, ...filteredBooks];
       startIndex += maxResults;
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
     }
 
     dispatch(getFictionBookSuccess({ data: fictionBooks, status: "success" }));
