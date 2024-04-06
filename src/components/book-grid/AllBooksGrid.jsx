@@ -1,31 +1,27 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getAllBooks,
-  getEduBooks,
-  getFictionBooks,
-} from "../../redux/slice/books-slice";
+import { getBooks } from "../../redux/slice/books-slice";
 import BookCard from "../book-card/BookCard";
 import searchIcon from "../../assets/images/search.svg";
 import LoadingBooks from "../loading-books/LoadingBooks";
 
 function AllBooksGrid() {
   const dispatch = useDispatch();
-  const { allBooks, fictionBooks, eduBooks, status } = useSelector(
-    (state) => state.books
-  );
+  const { books, status } = useSelector((state) => state.books);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    dispatch(getFictionBooks());
-    dispatch(getEduBooks());
-    dispatch(getAllBooks());
-  }, [dispatch]);
+    dispatch(getBooks([]));
+  }, []);
 
-  const books = [...fictionBooks, ...eduBooks, ...allBooks];
+  let allBooks = [];
 
-  const filteredBooks = Array.isArray(books)
-    ? books.filter((book) =>
+  Object.values(books).forEach((categoryBooks) => {
+    allBooks = [...allBooks, ...categoryBooks];
+  });
+
+  const filteredBooks = Array.isArray(allBooks)
+    ? allBooks.filter((book) =>
         book.volumeInfo.title.toLowerCase().includes(searchTerm.toLowerCase())
       )
     : [];

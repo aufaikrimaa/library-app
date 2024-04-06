@@ -3,13 +3,13 @@ import BookGrid from "../components/book-grid/BookGrid";
 import {
   categoriesA,
   categoriesB,
+  categoriesC,
   categoriesD,
   categoriesE,
+  categoriesF,
 } from "../components/book-category/categoryData";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
-import EduBookGrid from "../components/book-grid/EduBookGrid";
-import FictionBookGrid from "../components/book-grid/FictionBookGrid";
 
 function CategoryBooks() {
   const { category } = useParams();
@@ -18,25 +18,25 @@ function CategoryBooks() {
 
   switch (category) {
     case "Education & Knowledge":
-      selectedCategories = "";
+      selectedCategories = categoriesA;
       break;
     case "Fiction":
-      selectedCategories = "";
-      break;
-    case "Business & Economics":
-      selectedCategories = categoriesA;
-      break;
-    case "Computers & Technology":
       selectedCategories = categoriesB;
       break;
-    case "Language & Linguistics":
+    case "Business & Economics":
+      selectedCategories = categoriesC;
+      break;
+    case "Computers & Technology":
       selectedCategories = categoriesD;
       break;
-    case "Law & Legal Issues":
+    case "Language & Linguistics":
       selectedCategories = categoriesE;
       break;
+    case "Law & Legal Issues":
+      selectedCategories = categoriesF;
+      break;
     default:
-      selectedCategories = categoriesA;
+      selectedCategories = "";
   }
 
   return (
@@ -46,13 +46,7 @@ function CategoryBooks() {
         <div className="flex justify-center text-[#525E85] text-3xl font-bold mb-4 pt-18 mb-8">
           {category}
         </div>
-        {category === "Education & Knowledge" ? (
-          <EduBookGrid />
-        ) : category === "Fiction" ? (
-          <FictionBookGrid />
-        ) : (
-          <BookGrid categories={selectedCategories} />
-        )}
+        <BookGrid categories={selectedCategories} />
       </div>
       <Footer />
     </>

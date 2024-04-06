@@ -1,10 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getAllBooks,
-  getEduBooks,
-  getFictionBooks,
-} from "../../redux/slice/books-slice";
+import { getBooks } from "../../redux/slice/books-slice";
 import BookCard from "../book-card/BookCard";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -18,17 +14,19 @@ import LoadingBooks from "../loading-books/LoadingBooks";
 
 function AllBooks({}) {
   const dispatch = useDispatch();
-  const { allBooks, fictionBooks, eduBooks } = useSelector(
-    (state) => state.books
-  );
+  const { books } = useSelector((state) => state.books);
 
   useEffect(() => {
-    dispatch(getFictionBooks());
-    dispatch(getEduBooks());
-    dispatch(getAllBooks());
+    dispatch(getBooks([]));
   }, []);
 
-  const books = [...fictionBooks, ...eduBooks, ...allBooks];
+  let allBooks = [];
+
+  Object.values(books).forEach((categoryBooks) => {
+    allBooks = [...allBooks, ...categoryBooks];
+  });
+
+  // console.log(allBooks);
 
   return (
     <>
@@ -41,9 +39,9 @@ function AllBooks({}) {
           modules={[FreeMode, Navigation]}
           className="swiper-allBooks"
         >
-          {books && books.length > 0 ? (
+          {allBooks && allBooks.length > 0 ? (
             <>
-              {books.map((item, index) => (
+              {allBooks.map((item, index) => (
                 <SwiperSlide key={index}>
                   <BookCard
                     key={index}

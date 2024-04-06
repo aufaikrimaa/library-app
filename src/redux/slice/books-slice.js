@@ -5,9 +5,6 @@ const bookSlice = createSlice({
   name: "books",
   initialState: {
     books: [],
-    allBooks: [],
-    eduBooks: [],
-    fictionBooks: [],
     bookSlide: [],
     bookDetail: {},
     status: "",
@@ -33,20 +30,11 @@ const bookSlice = createSlice({
       state.bookSlide = action.payload.data;
       state.status = action.payload.status;
     },
-    getAllBookSuccess(state, action) {
-      state.allBooks = action.payload.data;
-      state.status = action.payload.status;
-    },
-    getEduBookSuccess(state, action) {
-      state.eduBooks = action.payload.data;
-      state.status = action.payload.status;
-    },
-    getFictionBookSuccess(state, action) {
-      state.fictionBooks = action.payload.data;
-      state.status = action.payload.status;
-    },
   },
 });
+
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const GBooksAPI = "https://www.googleapis.com/books/v1/volumes";
 
 export const getBooks = (categories) => {
   return async (dispatch, getState) => {
@@ -66,20 +54,76 @@ export const getBooks = (categories) => {
     let startIndex = 0;
     const maxResults = 40;
 
-    while (startIndex < 200) {
+    while (startIndex < 80) {
       const response = await axios.get(
-        `https://www.googleapis.com/books/v1/volumes?q=language:id&startIndex=${startIndex}&maxResults=${maxResults}`
+        `${GBooksAPI}?q=education+knowledge&startIndex=${startIndex}&maxResults=${maxResults}`
+      );
+
+      const eduBooksItem = response.data.items.map((item) => {
+        const thumbnail = item.volumeInfo.imageLinks?.thumbnail
+          ? item.volumeInfo.imageLinks.thumbnail.replace("http://", "https://")
+          : null;
+
+        return {
+          ...item,
+          volumeInfo: {
+            ...item.volumeInfo,
+            imageLinks: {
+              ...item.volumeInfo.imageLinks,
+              thumbnail,
+            },
+            categories: ["Education", "Knowledge"],
+          },
+        };
+      });
+
+      allBooks = [...allBooks, ...eduBooksItem];
+      await delay(1000);
+      startIndex += maxResults;
+    }
+
+    startIndex = 0;
+
+    while (startIndex < 80) {
+      const response = await axios.get(
+        `${GBooksAPI}?q=harry+potter+fiction+Magic+Mystery&startIndex=${startIndex}&maxResults=${maxResults}`
       );
 
       const filteredBooks = response.data.items.filter(
-        (book) =>
-          book.volumeInfo.categories &&
-          categories.some((category) =>
-            book.volumeInfo.categories.includes(category)
-          )
+        (book) => book.volumeInfo.imageLinks
       );
 
-      const booksItem = filteredBooks.map((item) => {
+      const fictionBooksItem = filteredBooks.map((item) => {
+        const thumbnail = item.volumeInfo.imageLinks?.thumbnail
+          ? item.volumeInfo.imageLinks.thumbnail.replace("http://", "https://")
+          : null;
+
+        return {
+          ...item,
+          volumeInfo: {
+            ...item.volumeInfo,
+            imageLinks: {
+              ...item.volumeInfo.imageLinks,
+              thumbnail,
+            },
+            categories: ["Fiction", "Magic"],
+          },
+        };
+      });
+
+      allBooks = [...allBooks, ...fictionBooksItem];
+      await delay(1000);
+      startIndex += maxResults;
+    }
+
+    startIndex = 0;
+
+    while (startIndex < 100) {
+      const response = await axios.get(
+        `${GBooksAPI}?q=language:id&startIndex=${startIndex}&maxResults=${maxResults}`
+      );
+
+      const booksItem = response.data.items.map((item) => {
         const thumbnail = item.volumeInfo.imageLinks?.thumbnail
           ? item.volumeInfo.imageLinks.thumbnail.replace("http://", "https://")
           : null;
@@ -97,12 +141,25 @@ export const getBooks = (categories) => {
       });
 
       allBooks = [...allBooks, ...booksItem];
+      await delay(1000);
       startIndex += maxResults;
-
-      await new Promise((resolve) => setTimeout(resolve, 1000));
     }
 
-    dispatch(getBookSuccess({ data: allBooks, categories, status: "success" }));
+    const filteredBooksCategory = allBooks.filter(
+      (book) =>
+        book.volumeInfo.categories &&
+        categories.some((category) =>
+          book.volumeInfo.categories.includes(category)
+        )
+    );
+
+    dispatch(
+      getBookSuccess({
+        data: filteredBooksCategory,
+        categories,
+        status: "success",
+      })
+    );
   };
 };
 
@@ -111,9 +168,7 @@ export const getBookDetail = (id) => {
     dispatch(setStatus("loading"));
 
     try {
-      const response = await axios.get(
-        `https://www.googleapis.com/books/v1/volumes/${id}`
-      );
+      const response = await axios.get(`${GBooksAPI}/${id}`);
 
       const item = response.data;
       const thumbnail = item.volumeInfo.imageLinks?.thumbnail
@@ -155,7 +210,7 @@ export const getBooksforSlides = () => {
 
     while (startIndex < 32) {
       const response = await axios.get(
-        `https://www.googleapis.com/books/v1/volumes?q=fiction+Magic+Mystery&startIndex=${startIndex}&maxResults=${maxResults}`
+        `${GBooksAPI}?q=fiction+Magic+Mystery&startIndex=${startIndex}&maxResults=${maxResults}`
       );
 
       const filteredBooks = response.data.items.filter(
@@ -189,160 +244,6 @@ export const getBooksforSlides = () => {
   };
 };
 
-export const getAllBooks = () => {
-  return async (dispatch, getState) => {
-    const cachedAllBooks = getState().books.allBooks;
-
-    if (Object.keys(cachedAllBooks).length !== 0) {
-      dispatch(getAllBookSuccess({ data: cachedAllBooks, status: "success" }));
-      return;
-    }
-
-    dispatch(setStatus("loading"));
-
-    let allBooks = [];
-    let startIndex = 0;
-    const maxResults = 40;
-
-    while (startIndex < 100) {
-      const response = await axios.get(
-        `https://www.googleapis.com/books/v1/volumes?q=language:id&startIndex=${startIndex}&maxResults=${maxResults}`
-      );
-
-      const allBooksItem = response.data.items.map((item) => {
-        const thumbnail = item.volumeInfo.imageLinks?.thumbnail
-          ? item.volumeInfo.imageLinks.thumbnail.replace("http://", "https://")
-          : null;
-
-        return {
-          ...item,
-          volumeInfo: {
-            ...item.volumeInfo,
-            imageLinks: {
-              ...item.volumeInfo.imageLinks,
-              thumbnail,
-            },
-          },
-        };
-      });
-
-      allBooks = [...allBooks, ...allBooksItem];
-      startIndex += maxResults;
-
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-    }
-
-    dispatch(getAllBookSuccess({ data: allBooks, status: "success" }));
-  };
-};
-
-export const getEduBooks = () => {
-  return async (dispatch, getState) => {
-    const cachedAllBooks = getState().books.eduBooks;
-
-    if (Object.keys(cachedAllBooks).length !== 0) {
-      dispatch(getAllBookSuccess({ data: cachedAllBooks, status: "success" }));
-      return;
-    }
-
-    dispatch(setStatus("loading"));
-
-    let eduBooks = [];
-    let startIndex = 0;
-    const maxResults = 40;
-
-    while (startIndex < 80) {
-      const response = await axios.get(
-        `https://www.googleapis.com/books/v1/volumes?q=education+knowledge&startIndex=${startIndex}&maxResults=${maxResults}`
-      );
-
-      const eduBooksItem = response.data.items.map((item) => {
-        const thumbnail = item.volumeInfo.imageLinks?.thumbnail
-          ? item.volumeInfo.imageLinks.thumbnail.replace("http://", "https://")
-          : null;
-
-        return {
-          ...item,
-          volumeInfo: {
-            ...item.volumeInfo,
-            imageLinks: {
-              ...item.volumeInfo.imageLinks,
-              thumbnail,
-            },
-            categories: ["Education"],
-          },
-        };
-      });
-
-      eduBooks = [...eduBooks, ...eduBooksItem];
-      startIndex += maxResults;
-
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-    }
-
-    dispatch(getEduBookSuccess({ data: eduBooks, status: "success" }));
-  };
-};
-
-export const getFictionBooks = () => {
-  return async (dispatch, getState) => {
-    const cachedAllBooks = getState().books.fictionBooks;
-
-    if (Object.keys(cachedAllBooks).length !== 0) {
-      dispatch(getAllBookSuccess({ data: cachedAllBooks, status: "success" }));
-      return;
-    }
-
-    dispatch(setStatus("loading"));
-
-    let fictionBooks = [];
-    let startIndex = 0;
-    const maxResults = 40;
-
-    while (startIndex < 80) {
-      const response = await axios.get(
-        `https://www.googleapis.com/books/v1/volumes?q=harry+potter+fiction+Magic+Mystery&startIndex=${startIndex}&maxResults=${maxResults}`
-      );
-
-      const filteredBooks = response.data.items.filter(
-        (book) => book.volumeInfo.imageLinks
-      );
-
-      const fictionBooksItem = filteredBooks.map((item) => {
-        const thumbnail = item.volumeInfo.imageLinks?.thumbnail
-          ? item.volumeInfo.imageLinks.thumbnail.replace("http://", "https://")
-          : null;
-
-        return {
-          ...item,
-          volumeInfo: {
-            ...item.volumeInfo,
-            imageLinks: {
-              ...item.volumeInfo.imageLinks,
-              thumbnail,
-            },
-            categories: ["Fiction"],
-          },
-        };
-      });
-
-      fictionBooks = [...fictionBooks, ...fictionBooksItem];
-      startIndex += maxResults;
-
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-    }
-
-    dispatch(getFictionBookSuccess({ data: fictionBooks, status: "success" }));
-  };
-};
-
-export const {
-  setStatus,
-  getBookSuccess,
-  getBookDetailSuccess,
-  getBookSlide,
-  getAllBookSuccess,
-  getEduBookSuccess,
-  getFictionBookSuccess,
-} = bookSlice.actions;
+export const { setStatus, getBookSuccess, getBookDetailSuccess, getBookSlide } =
+  bookSlice.actions;
 export default bookSlice.reducer;

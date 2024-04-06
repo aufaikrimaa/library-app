@@ -1,4 +1,8 @@
-const categoriesA = [
+const categoriesA = ["Education", "Knowledge"];
+
+const categoriesB = ["Fiction", "Magic"];
+
+const categoriesC = [
   "Business",
   "Business & Economics",
   "Copyright",
@@ -8,7 +12,7 @@ const categoriesA = [
   "Collective labor agreements",
 ];
 
-const categoriesB = [
+const categoriesD = [
   "Technology & Engineering",
   "Computers",
   "Database management",
@@ -18,9 +22,7 @@ const categoriesB = [
   "Telecommunication",
 ];
 
-const categoriesC = ["Education"];
-
-const categoriesD = [
+const categoriesE = [
   "Language Arts & Disciplines",
   "English language",
   "Language and languages",
@@ -33,7 +35,7 @@ const categoriesD = [
   "Computational linguistics",
 ];
 
-const categoriesE = [
+const categoriesF = [
   "Law",
   "Law reports, digests, etc",
   "Courts-martial and courts of inquiry",
@@ -49,4 +51,11 @@ const categoriesE = [
   "Courts",
 ];
 
-export { categoriesA, categoriesB, categoriesC, categoriesD, categoriesE };
+export {
+  categoriesA,
+  categoriesB,
+  categoriesC,
+  categoriesD,
+  categoriesE,
+  categoriesF,
+};
