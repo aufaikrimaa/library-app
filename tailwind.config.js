@@ -27,9 +27,10 @@ export default {
       },
     },
     screens: {
-      sm: { min: "400px", max: "767px" },
-      md: { min: "768px", max: "1000px" },
-      lg: { min: "1001px", max: "1399px" },
+      xs: { min: "300px", max: "559px" },
+      sm: { min: "560px", max: "799px" },
+      md: { min: "800px", max: "1100px" },
+      lg: { min: "1101px", max: "1399px" },
       xl: { min: "1400px", max: "1600px" },
       "2xl": { min: "1601px", max: "1800px" },
       "3xl": { min: "1801px", max: "2000px" },
