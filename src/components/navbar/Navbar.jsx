@@ -55,16 +55,16 @@ function Navbar() {
         ref={navbarRef}
         className="section navbar flex fixed z-20 cursor-pointer text-[#525E85] font-bold"
       >
-        <div className=" flex basis-1/2 ">
+        <div className=" flex basis-4/5 ">
           <Link to="/" className="logo flex">
-            <img src={logo} alt="logo" className="h-6 self-center " />
-            <div className="self-center pl-1 text-3xl mr-5 pb-1">
+            <img src={logo} alt="logo" className="h-6 md:h-5 self-center " />
+            <div className="self-center pl-1 text-3xl md:text-2xl mr-5 pb-1">
               au<span className="text-[#8fabff]">Libz</span>
             </div>
           </Link>
           <Link
             to="/"
-            className={`menu mr-5 self-center  text-lg ${
+            className={`menu mr-5 self-center  text-lg md:text-base ${
               activeNav === "/" ? "active" : ""
             }`}
             onClick={() => handleNavChange("/")}
@@ -72,7 +72,7 @@ function Navbar() {
             Home
           </Link>
           <div
-            className={`menu mr-4 self-center flex  text-lg ${
+            className={`menu mr-4 self-center flex text-lg md:text-base ${
               activeNav.includes("/books") ? "active" : ""
             }`}
             onClick={toggleDropdown}
@@ -80,21 +80,21 @@ function Navbar() {
             Books
             <img
               src={iconDowwn}
-              className="h-[10px] ml-0.5 mt-0.5 self-center"
+              className="h-[10px] md:h-[8px] ml-0.5 mt-0.5 self-center"
             />
             <div
               className={`dropdown z-10 fixed ${isDropdownOpen ? "open" : ""}`}
             >
               {isDropdownOpen && (
                 <div className="z-30 bg-white shadow-lg mt-5 w-[16rem] text-[#525E85]">
-                  <div className="block px-4 py-2 font-bold border-b-2 text-base">
+                  <div className="block px-4 py-2 font-bold border-b-2 text-base md:text-sm">
                     Category
                   </div>
                   {bookNav.map((nav, i) => (
                     <div key={i}>
                       <Link
                         to={`/books/${nav}`}
-                        className="block px-4 py-2 hover:bg-gray-200 font-normal text-base"
+                        className="block px-4 py-2 hover:bg-gray-200 font-normal text-base md:text-sm"
                         onClick={() => {
                           setIsDropdownOpen(false);
                           handleNavChange(`/books/${nav}`);
@@ -110,7 +110,7 @@ function Navbar() {
           </div>
           <Link
             to="/all-books"
-            className={`menu mr-5 self-center  text-lg ${
+            className={`menu mr-5 self-center  text-lg md:text-base ${
               activeNav === "/all-books" ? "active" : ""
             }`}
             onClick={() => handleNavChange("/all-books")}
@@ -118,16 +118,22 @@ function Navbar() {
             All Books
           </Link>
         </div>
-        <div className="flex basis-1/2 justify-end">
+        <div className="flex basis-1/5 justify-end">
           <Link to="/saved" className="self-center grid">
             {countSaved ? (
-              <div className="absolute justify-self-end rounded-full bg-[#525E85] w-3.5 h-3.5 text-white flex justify-center">
-                <div className="self-center text-xs">{countSaved}</div>
+              <div className="absolute justify-self-end rounded-full bg-[#525E85] w-3.5 h-3.5 md:w-2 md:h-2 text-white flex justify-center">
+                <div className="self-center text-xs md:text-[8px]">
+                  {countSaved}
+                </div>
               </div>
             ) : (
               <></>
             )}
-            <img src={saved} alt="logo" className="mt-0.5 h-6" />
+            <img
+              src={saved}
+              alt="logo"
+              className="mt-0.5 md:mt-[2px] h-6 md:h-5"
+            />
           </Link>
         </div>
       </div>

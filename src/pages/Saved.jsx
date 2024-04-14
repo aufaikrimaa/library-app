@@ -19,10 +19,10 @@ function Saved() {
   return (
     <>
       <Navbar />
-      <div className="px-4">
+      <div className="px-4 h-[76vh]">
         {savedBooks && savedBooks.length > 0 ? (
           <>
-            <div className="flex justify-center text-[#525E85] text-3xl font-bold pt-18 mb-8">
+            <div className="flex justify-center text-[#525E85] text-3xl md:text-2xl font-bold pt-18 mb-8">
               Saved Books
             </div>
             <div className="flex flex-wrap justify-center mb-8">

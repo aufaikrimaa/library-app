@@ -43,11 +43,11 @@ function CategoryBooks() {
     <>
       <Navbar />
       <div className="section">
-        <div className="flex justify-center text-[#525E85] text-3xl font-bold mb-4 pt-18 mb-8">
+        <div className="flex justify-center text-[#525E85] text-3xl md:text-2xl font-bold mb-4 pt-18 mb-8">
           {category}
         </div>
-        <BookGrid categories={selectedCategories} />
       </div>
+      <BookGrid categories={selectedCategories} />
       <Footer />
     </>
   );

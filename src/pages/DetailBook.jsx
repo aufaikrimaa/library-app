@@ -47,7 +47,7 @@ function DetailBook() {
     <div>
       <Navbar />
       <div className="section">
-        <div className="px-16 lg:px-6 pt-20 pb-8 flex">
+        <div className="px-16 lg:px-6 md:px-2 pt-20 md:pt-18 pb-8 flex">
           {status === "loading" ? (
             <>
               <LoadingDetailBook />
@@ -60,7 +60,7 @@ function DetailBook() {
                     <div className="text-3xl font-bold mb-0.5">
                       {bookDetail.volumeInfo.title}
                     </div>
-                    <div className="font-medium text-lg text-[#8fabff] mb-0.5">
+                    <div className="font-medium text-lg md:text-base text-[#8fabff] mb-0.5">
                       {bookDetail.volumeInfo.authors ? (
                         <>
                           {bookDetail.volumeInfo.authors.length > 1
@@ -73,14 +73,16 @@ function DetailBook() {
                         <></>
                       )}
                     </div>
-                    <div className="text-sm mb-3">
+                    <div className="text-sm md:text-xs mb-3">
                       {bookDetail.volumeInfo.publishedDate
                         ? `${formatDate(bookDetail.volumeInfo.publishedDate)}`
                         : "eBook"}{" "}
                       - {bookDetail.volumeInfo.publisher}
                     </div>
-                    <div className="text-base font-medium text-justify">
-                      <div className="font-bold text-lg">About this book:</div>
+                    <div className="text-base md:text-sm font-medium text-justify">
+                      <div className="font-bold text-lg md:text-base">
+                        About this book:
+                      </div>
                       {bookDetail.volumeInfo.description ? (
                         <div
                           dangerouslySetInnerHTML={{
@@ -91,7 +93,7 @@ function DetailBook() {
                         <div>{bookDetail.volumeInfo.subtitle}</div>
                       )}
                     </div>
-                    <div className="h-18 flex items-center font-bold text-lg">
+                    <div className="h-18 flex items-center font-bold text-lg md:text-base">
                       <div className="px-2">
                         {bookDetail.saleInfo.saleability === "FREE"
                           ? "Free book"
@@ -116,7 +118,7 @@ function DetailBook() {
                       <div className="cursor-pointer button-read rounded-lg bg-[#525E85] text-white font-bold mr-2 hover:bg-white hover:text-[#525E85] border border-2 hover:border-[#525E85]">
                         {bookDetail.saleInfo.saleability === "FREE" ? (
                           <div
-                            className="py-1 flex justify-center w-24"
+                            className="py-1  md:py-[6px] flex justify-center w-24 md:text-sm "
                             onClick={() =>
                               buttonLink(bookDetail.accessInfo.pdf.downloadLink)
                             }
@@ -125,7 +127,7 @@ function DetailBook() {
                           </div>
                         ) : bookDetail.saleInfo.saleability === "FOR_SALE" ? (
                           <div
-                            className="py-1 flex justify-center w-24 "
+                            className="py-1 md:py-[6px] flex justify-center w-24 md:text-sm"
                             onClick={() =>
                               buttonLink(bookDetail.saleInfo.buyLink)
                             }
@@ -134,7 +136,7 @@ function DetailBook() {
                           </div>
                         ) : (
                           <div
-                            className="py-1 flex justify-center w-24"
+                            className="py-1  md:py-[6px] flex justify-center w-24 md:text-sm "
                             onClick={() =>
                               buttonLink(bookDetail.volumeInfo.infoLink)
                             }
@@ -148,9 +150,9 @@ function DetailBook() {
                         isSaved={isSaved}
                         setIsSaved={setIsSaved}
                         updateSavedBooks={updateSavedBooks}
-                        styleIcon={"h-3.5 self-center pr-0.5"}
+                        styleIcon={"h-3.5 md:h-3 self-center pr-0.5"}
                         styleButton={
-                          "cursor-pointer button-read border border-2 rounded-lg border-[#525E85] font-bold w-24 flex justify-center py-1"
+                          "cursor-pointer button-read border border-2 rounded-lg border-[#525E85] font-bold w-24 flex justify-center py-1  md:py-[6px] md:text-sm "
                         }
                       />
                     </div>
@@ -160,7 +162,7 @@ function DetailBook() {
                       <img
                         src={bookDetail.volumeInfo.imageLinks?.thumbnail}
                         alt={bookDetail.title}
-                        className="img-swipe h-[20rem]"
+                        className="img-swipe h-[20rem] md:h-[16rem]"
                       />
                     ) : (
                       <div className="text-center  bg-gray-300 py-5 mx-6">
