@@ -19,10 +19,10 @@ function Saved() {
   return (
     <>
       <Navbar />
-      <div className="px-4 h-[76vh]">
+      <div className="px-4">
         {savedBooks && savedBooks.length > 0 ? (
           <>
-            <div className="flex justify-center text-[#525E85] text-3xl md:text-2xl font-bold pt-18 mb-8">
+            <div className="flex justify-center text-[#525E85] text-3xl md:text-2xl sm:text-2xl xs:text-2xl font-bold pt-18 sm:pt-10 xs:pt-10 mb-8 sm:mb-5 xs:mb-5">
               Saved Books
             </div>
             <div className="flex flex-wrap justify-center mb-8">
@@ -42,12 +42,12 @@ function Saved() {
         ) : (
           <div className="flex justify-center mb-8">
             <div className="h-[23.6rem] 2xl:h-[27.3rem] 3xl:h-[30.4rem] lg:h-[18.8rem] grid content-center pt-18">
-              <div className="font-bold text-[#525E85] text-xl mb-1">
+              <div className="font-bold text-[#525E85] text-xl sm:text-lg xs:text-lg mb-1">
                 You don't have any saved books.
               </div>
               <Link
                 to="/all-books"
-                className="button-read bg-[#525E85] flex justify-center text-white py-1 rounded-full font-bold text-xl lg:text-lg cursor-pointer hover:scale-110 transition duration-300 ease-in-out"
+                className="button-read bg-[#525E85] flex justify-center text-white py-1 rounded-full font-bold text-xl lg:text-lg sm:text-base xs:text-base cursor-pointer hover:scale-110 transition duration-300 ease-in-out"
               >
                 Go find some books➡️
               </Link>
@@ -55,7 +55,9 @@ function Saved() {
           </div>
         )}
       </div>
-      <Footer />
+      <div className="sm:hidden xs:hidden">
+        <Footer />
+      </div>
     </>
   );
 }

@@ -24,16 +24,16 @@ function About() {
           <img
             src={booksCaseLeft}
             alt="books"
-            className="h-[85vh] md:h-[50vh]"
+            className="h-[85vh] md:h-[50vh] xs:h-[45vh] sm:h-[45vh]"
           />
         </div>
-        <div className="basis-3/5 flex text-center">
+        <div className="basis-3/5 flex text-center ">
           <div className="self-center">
-            <div className="text-[#525E85] text-6xl lg:text-5xl md:text-4xl font-bold mb-5 md:mb-4">
+            <div className="text-[#525E85] text-6xl lg:text-5xl md:text-4xl sm:text-2xl xs:text-xl font-bold mb-5 md:mb-4 sm:mb-2 xs:mb-2">
               Find Your Favorite Books Here
             </div>
-            <div className="text-[#525E85] text-xl lg:text-lg md:text-base font-medium mb-5 md:mb-4">
-              <strong className="text-2xl md:text-xl">
+            <div className="text-[#525E85] text-xl lg:text-lg md:text-base sm:text-sm xs:text-xs font-medium mb-5 md:mb-4 sm:mb-2 xs:mb-2">
+              <strong className="text-2xl md:text-xl sm:text-lg xs:text-base">
                 au<span className="text-[#8fabff]">Libz </span>
               </strong>
               is the ultimate collection of books sourced from Google Books.
@@ -45,12 +45,12 @@ function About() {
               {booksData.map((item, index) => (
                 <div
                   key={index}
-                  className="mx-3 grid justify-items-center w-16"
+                  className="mx-3 grid justify-items-center w-16 xs:w-6 sm:w-8"
                 >
-                  <div className="text-5xl md:text-4xl font-medium my-2">
+                  <div className="text-5xl md:text-4xl sm:text-2xl xs:text-xl font-medium my-2">
                     {item.count}
                   </div>
-                  <div className="text-xl md:text-base font-bold">
+                  <div className="text-xl md:text-base sm:text-sm xs:text-xs font-bold">
                     {item.saleAbility}
                   </div>
                 </div>
@@ -59,7 +59,7 @@ function About() {
             <div className="flex justify-center">
               <Link
                 to="/all-books"
-                className="button-read mt-6 md:mt-5 bg-[#525E85] text-white w-[40%] md:w-[38%] py-1 md:py-0.5 rounded-full font-bold text-xl lg:text-lg md:text-base cursor-pointer hover:scale-110 transition duration-300 ease-in-out"
+                className="button-read mt-6 md:mt-5 xs:mt-3 sm:mt-4 bg-[#525E85] text-white w-[40%] md:w-[38%] xs:w-[65%] sm:w-[65%] py-1 md:py-0.5 rounded-full font-bold text-xl lg:text-lg md:text-base sm:text-sm xs:text-xs cursor-pointer hover:scale-110 transition duration-300 ease-in-out"
               >
                 Go find some books➡️
               </Link>
@@ -70,7 +70,7 @@ function About() {
           <img
             src={booksCaseRight}
             alt="books"
-            className="h-[85vh]  md:h-[50vh]"
+            className="h-[85vh] md:h-[50vh] xs:h-[45vh] sm:h-[45vh]"
           />
         </div>
       </div>

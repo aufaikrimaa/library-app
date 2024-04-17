@@ -47,7 +47,7 @@ function DetailBook() {
     <div>
       <Navbar />
       <div className="section">
-        <div className="px-16 lg:px-6 md:px-2 pt-20 md:pt-18 pb-8 flex">
+        <div className="px-16 lg:px-6 md:px-2 sm:px-1 xs:px-1 pt-20 md:pt-18 sm:pt-10 xs:pt-10 pb-8 flex sm:grid xs:grid">
           {status === "loading" ? (
             <>
               <LoadingDetailBook />
@@ -57,30 +57,49 @@ function DetailBook() {
               {bookDetail && bookDetail.volumeInfo ? (
                 <>
                   <div className="basis-2/3 text-[#525E85]">
-                    <div className="text-3xl font-bold mb-0.5">
-                      {bookDetail.volumeInfo.title}
+                    <div className="flex">
+                      <div className="hidden sm:block xs:block mr-4 mb-4">
+                        {bookDetail.volumeInfo.imageLinks ? (
+                          <img
+                            src={bookDetail.volumeInfo.imageLinks?.thumbnail}
+                            alt={bookDetail.title}
+                            className="img-swipe w-[40vw] "
+                          />
+                        ) : (
+                          <div className="text-center  bg-gray-300 py-5 mx-6">
+                            {bookDetail.title}
+                          </div>
+                        )}
+                      </div>
+                      <div>
+                        <div className="text-3xl xs:text-xl font-bold mb-0.5">
+                          {bookDetail.volumeInfo.title}
+                        </div>
+                        <div className="font-medium text-lg xs:text-sm md:text-base text-[#8fabff] mb-0.5">
+                          {bookDetail.volumeInfo.authors ? (
+                            <>
+                              {bookDetail.volumeInfo.authors.length > 1
+                                ? "Authors: "
+                                : "Author: "}
+                              {bookDetail.volumeInfo.authors &&
+                                bookDetail.volumeInfo.authors.join(", ")}
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                        <div className="text-sm md:text-xs xs:text-xs mb-3">
+                          {bookDetail.volumeInfo.publishedDate
+                            ? `${formatDate(
+                                bookDetail.volumeInfo.publishedDate
+                              )}`
+                            : "eBook"}{" "}
+                          - {bookDetail.volumeInfo.publisher}
+                        </div>
+                      </div>
                     </div>
-                    <div className="font-medium text-lg md:text-base text-[#8fabff] mb-0.5">
-                      {bookDetail.volumeInfo.authors ? (
-                        <>
-                          {bookDetail.volumeInfo.authors.length > 1
-                            ? "Authors: "
-                            : "Author: "}
-                          {bookDetail.volumeInfo.authors &&
-                            bookDetail.volumeInfo.authors.join(", ")}
-                        </>
-                      ) : (
-                        <></>
-                      )}
-                    </div>
-                    <div className="text-sm md:text-xs mb-3">
-                      {bookDetail.volumeInfo.publishedDate
-                        ? `${formatDate(bookDetail.volumeInfo.publishedDate)}`
-                        : "eBook"}{" "}
-                      - {bookDetail.volumeInfo.publisher}
-                    </div>
-                    <div className="text-base md:text-sm font-medium text-justify">
-                      <div className="font-bold text-lg md:text-base">
+                    <div className="text-base md:text-sm xs:text-sm font-medium text-justify">
+                      <div className="font-bold text-lg md:text-base xs:text-base">
                         About this book:
                       </div>
                       {bookDetail.volumeInfo.description ? (
@@ -93,7 +112,7 @@ function DetailBook() {
                         <div>{bookDetail.volumeInfo.subtitle}</div>
                       )}
                     </div>
-                    <div className="h-18 flex items-center font-bold text-lg md:text-base">
+                    <div className="h-18 flex items-center font-bold text-lg md:text-base xs:text-sm">
                       <div className="px-2">
                         {bookDetail.saleInfo.saleability === "FREE"
                           ? "Free book"
@@ -114,11 +133,11 @@ function DetailBook() {
                         {bookDetail.volumeInfo.pageCount} pages
                       </div>
                     </div>
-                    <div className="flex">
-                      <div className="cursor-pointer button-read rounded-lg bg-[#525E85] text-white font-bold mr-2 hover:bg-white hover:text-[#525E85] border border-2 hover:border-[#525E85]">
+                    <div className="flex xs:grid">
+                      <div className="cursor-pointer button-read rounded-lg bg-[#525E85] text-white font-bold mr-2 xs:mr-0 xs:mb-2 hover:bg-white hover:text-[#525E85] border border-2 hover:border-[#525E85]">
                         {bookDetail.saleInfo.saleability === "FREE" ? (
                           <div
-                            className="py-1  md:py-[6px] flex justify-center w-24 md:text-sm "
+                            className="py-1  md:py-[6px] flex justify-center w-24 xs:w-full md:text-sm "
                             onClick={() =>
                               buttonLink(bookDetail.accessInfo.pdf.downloadLink)
                             }
@@ -127,7 +146,7 @@ function DetailBook() {
                           </div>
                         ) : bookDetail.saleInfo.saleability === "FOR_SALE" ? (
                           <div
-                            className="py-1 md:py-[6px] flex justify-center w-24 md:text-sm"
+                            className="py-1 md:py-[6px] flex justify-center w-24 xs:w-full md:text-sm"
                             onClick={() =>
                               buttonLink(bookDetail.saleInfo.buyLink)
                             }
@@ -136,7 +155,7 @@ function DetailBook() {
                           </div>
                         ) : (
                           <div
-                            className="py-1  md:py-[6px] flex justify-center w-24 md:text-sm "
+                            className="py-1  md:py-[6px] flex justify-center w-24 xs:w-full md:text-sm "
                             onClick={() =>
                               buttonLink(bookDetail.volumeInfo.infoLink)
                             }
@@ -152,12 +171,12 @@ function DetailBook() {
                         updateSavedBooks={updateSavedBooks}
                         styleIcon={"h-3.5 md:h-3 self-center pr-0.5"}
                         styleButton={
-                          "cursor-pointer button-read border border-2 rounded-lg border-[#525E85] font-bold w-24 flex justify-center py-1  md:py-[6px] md:text-sm "
+                          "cursor-pointer button-read border border-2 rounded-lg border-[#525E85] font-bold w-24 xs:w-full flex justify-center py-1  md:py-[6px] md:text-sm "
                         }
                       />
                     </div>
                   </div>
-                  <div className="basis-1/3 grid justify-items-center">
+                  <div className="basis-1/3 grid justify-items-center sm:hidden xs:hidden">
                     {bookDetail.volumeInfo.imageLinks ? (
                       <img
                         src={bookDetail.volumeInfo.imageLinks?.thumbnail}

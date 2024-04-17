@@ -24,12 +24,17 @@
 
 @media (min-width: 800px) and (max-width: 1100px) {
   .hero {
-    height: 60vh;
+    height: 50vh;
   }
 }
 
 @media (min-width: 560px) and (max-width: 799px) {
   .hero {
-    height: 50vh;
+    height: 40vh;
+  }
+}
+@media (min-width: 300px) and (max-width: 559px) {
+  .hero {
+    height: 40vh;
   }
 }

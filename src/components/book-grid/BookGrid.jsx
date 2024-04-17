@@ -22,19 +22,19 @@ function BookGrid({ categories }) {
 
   return (
     <>
-      <div className="section flex mb-6 ml-6 md:ml-3">
+      <div className="section flex mb-6 sm:mb-5 xs:mb-4 ml-6 md:ml-3 sm:ml-3 xs:ml-2">
         <div className="relative">
           <input
             type="text"
             placeholder="Search books..."
-            className="px-3 py-1 md:text-xs rounded-full w-[30rem] md:w-[25rem] border border-gray-500 focus:border-[#525E85] focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+            className="px-3 py-1 sm:py-0.5 xs:py-0.5 md:text-xs sm:text-[10px] xs:text-[10px] rounded-full w-[30rem] md:w-[25rem] sm:w-[85vw] xs:w-[85vw] border border-gray-500 focus:border-[#525E85] focus:ring focus:ring-blue-200 focus:ring-opacity-50"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <img
             src={searchIcon}
             alt="Search Icon"
-            className="absolute top-1/2 right-2 transform -translate-y-1/2 h-4 w-auto md:h-3.5 text-gray-400 pointer-events-none"
+            className="absolute top-1/2 right-2 transform -translate-y-1/2 h-4 w-auto md:h-3.5 sm:h-3 xs:h-3 text-gray-400 pointer-events-none"
           />
         </div>
       </div>

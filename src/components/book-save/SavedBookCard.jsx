@@ -13,7 +13,7 @@ function SavedBookCard({ img, title, id, author, book, updateSavedBooks }) {
   return (
     <>
       <div className=" hover:bg-gray-200">
-        <div className=" w-[18rem] lg:w-[16rem] md:w-[14rem] cursor-pointer flex m-4">
+        <div className="w-[18rem] lg:w-[16rem] md:w-[14rem] sm:w-[80vw] xs:w-[80vw] cursor-pointer flex m-4">
           <Link
             to={`/book/${id}`}
             className=" flex justify-center items-center pr-1"
@@ -24,9 +24,9 @@ function SavedBookCard({ img, title, id, author, book, updateSavedBooks }) {
               <div className="text-center bg-gray-300 py-5 mx-6">{title}</div>
             )}
           </Link>
-          <div className="w-[12rem] h-[12rem] lg:w-[10rem] lg:h-[10rem] md:w-[8rem] md:h-[10rem] grid content-between">
+          <div className="w-[12rem] h-[12rem] lg:w-[10rem] lg:h-[10rem] md:w-[8rem] md:h-[10rem] sm:w-full sm:h-[9rem] xs:w-full xs:h-[8rem] grid content-between">
             <Link to={`/book/${id}`} className="text-[#525E85]">
-              <div className="text-base lg:text-sm md:text-xs font-bold mb-1 lg:mb-0">
+              <div className="text-base lg:text-sm md:text-xs sm:text-base xs:text-sm font-bold mb-1 lg:mb-0">
                 {title}
               </div>
               <div className="text-xs lg:text-[0.65rem] md:text-[0.60rem]">

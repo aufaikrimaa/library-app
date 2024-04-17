@@ -47,12 +47,12 @@ function Hero() {
           <Swiper className="swiper-hero self-center mt-10">
             {bookSlide.map((item, index) => (
               <SwiperSlide key={index} className="hero-slide-photos flex">
-                <div className="basis-2/3 flex pl-14">
+                <div className="basis-2/3 flex pl-14 sm:pl-5 xs:pl-4">
                   <div className="self-center">
-                    <div className="text-5xl md:text-4xl font-bold mb-4 leading-[3.4rem]">
+                    <div className="text-5xl md:text-4xl sm:text-2xl xs:text-2xl font-bold mb-4 xs:mb-2 leading-[3.4rem]">
                       {item.volumeInfo.title}
                     </div>
-                    <div className="text-xl md:text-base font-medium mb-4">
+                    <div className="text-xl md:text-base sm:text-xs xs:text-xs font-medium mb-4 xs:mb-2">
                       {item.volumeInfo.subtitle ? (
                         <>{item.volumeInfo.subtitle}</>
                       ) : (
@@ -61,18 +61,18 @@ function Hero() {
                     </div>
                     <Link
                       to={`/book/${item.id}`}
-                      className="button-read mt-6 bg-[#525E85] text-white w-[12rem] md:w-[9rem] py-1 md:py-0.5 flex justify-center rounded-full font-bold text-xl md:text-base cursor-pointer hover:scale-110 transition duration-300 ease-in-out"
+                      className="button-read mt-6 xs:mt-3 bg-[#525E85] text-white w-[12rem] md:w-[9rem] sm:w-[7rem] xs:w-[6rem] py-1 md:py-0.5 flex justify-center rounded-full font-bold text-xl md:text-base sm:text-sm xs:text-xs cursor-pointer hover:scale-110 transition duration-300 ease-in-out"
                     >
                       Read now !
                     </Link>
                   </div>
                 </div>
-                <div className="basis-1/3 flex pl-8">
+                <div className="basis-1/3 flex pl-8 sm:pl-2 xs:pl-2">
                   <div className="h-[30rem] flex">
                     <img
                       src={item.volumeInfo.imageLinks?.thumbnail}
                       alt={`image ${index}`}
-                      className="img-swipe self-center h-[18rem] md:h-[15rem]"
+                      className="img-swipe self-center h-[18rem] md:h-[15rem] sm:h-[10rem] xs:h-[8rem]"
                     />
                   </div>
                 </div>

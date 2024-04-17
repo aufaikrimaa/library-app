@@ -43,7 +43,7 @@ function CategoryBooks() {
     <>
       <Navbar />
       <div className="section">
-        <div className="flex justify-center text-[#525E85] text-3xl md:text-2xl font-bold mb-4 pt-18 mb-8">
+        <div className="flex justify-center text-[#525E85] text-3xl md:text-2xl sm:text-xl xs:text-xl font-bold mb-4 pt-18 sm:pt-10 xs:pt-10 mb-8 sm:mb-5 xs:mb-5">
           {category}
         </div>
       </div>

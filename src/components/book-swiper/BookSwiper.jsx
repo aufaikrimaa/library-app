@@ -30,9 +30,16 @@ function BookSwiper({ categories }) {
         <Swiper
           grabCursor={true}
           spaceBetween={10}
-          slidesPerView={6}
           navigation={true}
           modules={[FreeMode, Navigation]}
+          breakpoints={{
+            300: {
+              slidesPerView: 5,
+            },
+            560: {
+              slidesPerView: 6,
+            },
+          }}
           className="swiper-books"
         >
           {books && books[categoryKey] && books[categoryKey].length > 0 ? (
