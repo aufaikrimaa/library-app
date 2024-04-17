@@ -205,10 +205,10 @@ export const getBooksforSlides = () => {
     dispatch(setStatus("loading"));
 
     let bookSlide = [];
-    let startIndex = 20;
+    let startIndex = 0;
     const maxResults = 10;
 
-    while (startIndex < 32) {
+    while (startIndex < 10) {
       const response = await axios.get(
         `${GBooksAPI}?q=fiction+Magic+Mystery&startIndex=${startIndex}&maxResults=${maxResults}`
       );
