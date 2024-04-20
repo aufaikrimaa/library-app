@@ -34,7 +34,44 @@ const bookSlice = createSlice({
 });
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const GBooksAPI = "https://www.googleapis.com/books/v1/volumes";
+const GBooksAPI = import.meta.env.VITE_REACT_APP_API_URL;
+
+const fetchBooksByQuery = async (
+  query,
+  startIndex,
+  maxResults,
+  categories = []
+) => {
+  const response = await axios.get(
+    `${GBooksAPI}?q=${query}&startIndex=${startIndex}&maxResults=${maxResults}`
+  );
+
+  const filteredBooks = response.data.items.filter(
+    (book) => book.volumeInfo.imageLinks
+  );
+
+  const transformedBooks = filteredBooks.map((item) => {
+    const thumbnail = item.volumeInfo.imageLinks?.thumbnail
+      ? item.volumeInfo.imageLinks.thumbnail.replace("http://", "https://")
+      : null;
+
+    return {
+      ...item,
+      volumeInfo: {
+        ...item.volumeInfo,
+        imageLinks: {
+          ...item.volumeInfo.imageLinks,
+          thumbnail,
+        },
+        categories: item.volumeInfo.categories
+          ? item.volumeInfo.categories
+          : categories,
+      },
+    };
+  });
+
+  return transformedBooks;
+};
 
 export const getBooks = (categories) => {
   return async (dispatch, getState) => {
@@ -50,100 +87,38 @@ export const getBooks = (categories) => {
 
     dispatch(setStatus("loading"));
 
-    let allBooks = [];
-    let startIndex = 0;
-    const maxResults = 40;
+    const fetchAndAppendBooks = async (query, categories = []) => {
+      let allBooks = [];
+      let startIndex = 0;
+      const maxResults = 40;
 
-    while (startIndex < 80) {
-      const response = await axios.get(
-        `${GBooksAPI}?q=education+knowledge&startIndex=${startIndex}&maxResults=${maxResults}`
-      );
+      while (startIndex < 80) {
+        const booksItem = await fetchBooksByQuery(
+          query,
+          startIndex,
+          maxResults,
+          categories
+        );
 
-      const eduBooksItem = response.data.items.map((item) => {
-        const thumbnail = item.volumeInfo.imageLinks?.thumbnail
-          ? item.volumeInfo.imageLinks.thumbnail.replace("http://", "https://")
-          : null;
+        allBooks = [...allBooks, ...booksItem];
+        await delay(1000);
+        startIndex += maxResults;
+      }
 
-        return {
-          ...item,
-          volumeInfo: {
-            ...item.volumeInfo,
-            imageLinks: {
-              ...item.volumeInfo.imageLinks,
-              thumbnail,
-            },
-            categories: ["Education", "Knowledge"],
-          },
-        };
-      });
+      return allBooks;
+    };
 
-      allBooks = [...allBooks, ...eduBooksItem];
-      await delay(1000);
-      startIndex += maxResults;
-    }
+    const eduBooks = await fetchAndAppendBooks("education+knowledge", [
+      "Education",
+      "Knowledge",
+    ]);
+    const fictionBooks = await fetchAndAppendBooks(
+      "harry+potter+fiction+Magic+Mystery",
+      ["Fiction", "Magic"]
+    );
+    const books = await fetchAndAppendBooks("language:id");
 
-    startIndex = 0;
-
-    while (startIndex < 80) {
-      const response = await axios.get(
-        `${GBooksAPI}?q=harry+potter+fiction+Magic+Mystery&startIndex=${startIndex}&maxResults=${maxResults}`
-      );
-
-      const filteredBooks = response.data.items.filter(
-        (book) => book.volumeInfo.imageLinks
-      );
-
-      const fictionBooksItem = filteredBooks.map((item) => {
-        const thumbnail = item.volumeInfo.imageLinks?.thumbnail
-          ? item.volumeInfo.imageLinks.thumbnail.replace("http://", "https://")
-          : null;
-
-        return {
-          ...item,
-          volumeInfo: {
-            ...item.volumeInfo,
-            imageLinks: {
-              ...item.volumeInfo.imageLinks,
-              thumbnail,
-            },
-            categories: ["Fiction", "Magic"],
-          },
-        };
-      });
-
-      allBooks = [...allBooks, ...fictionBooksItem];
-      await delay(1000);
-      startIndex += maxResults;
-    }
-
-    startIndex = 0;
-
-    while (startIndex < 100) {
-      const response = await axios.get(
-        `${GBooksAPI}?q=language:id&startIndex=${startIndex}&maxResults=${maxResults}`
-      );
-
-      const booksItem = response.data.items.map((item) => {
-        const thumbnail = item.volumeInfo.imageLinks?.thumbnail
-          ? item.volumeInfo.imageLinks.thumbnail.replace("http://", "https://")
-          : null;
-
-        return {
-          ...item,
-          volumeInfo: {
-            ...item.volumeInfo,
-            imageLinks: {
-              ...item.volumeInfo.imageLinks,
-              thumbnail,
-            },
-          },
-        };
-      });
-
-      allBooks = [...allBooks, ...booksItem];
-      await delay(1000);
-      startIndex += maxResults;
-    }
+    const allBooks = [...eduBooks, ...fictionBooks, ...books];
 
     const filteredBooksCategory = allBooks.filter(
       (book) =>
@@ -160,6 +135,42 @@ export const getBooks = (categories) => {
         status: "success",
       })
     );
+  };
+};
+
+export const getBooksforSlides = () => {
+  return async (dispatch, getState) => {
+    const cachedBookSlide = getState().books.bookSlide;
+
+    if (Object.keys(cachedBookSlide).length !== 0) {
+      dispatch(getBookSlide({ data: cachedBookSlide, status: "success" }));
+      return;
+    }
+
+    dispatch(setStatus("loading"));
+
+    let bookSlide = [];
+    let startIndex = 0;
+    const maxResults = 10;
+
+    while (startIndex < 10) {
+      const slidesBooksItem = await fetchBooksByQuery(
+        "fiction+Magic+Mystery",
+        startIndex,
+        maxResults
+      );
+
+      const filteredBooks = slidesBooksItem.filter(
+        (book) => book.volumeInfo.imageLinks && book.volumeInfo.subtitle
+      );
+
+      bookSlide = [...bookSlide, ...filteredBooks];
+      startIndex += maxResults;
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    }
+
+    dispatch(getBookSlide({ data: bookSlide, status: "success" }));
   };
 };
 
@@ -190,57 +201,6 @@ export const getBookDetail = (id) => {
     } catch (error) {
       dispatch(setStatus("error"));
     }
-  };
-};
-
-export const getBooksforSlides = () => {
-  return async (dispatch, getState) => {
-    const cachedBookSlide = getState().books.bookSlide;
-
-    if (Object.keys(cachedBookSlide).length !== 0) {
-      dispatch(getBookSlide({ data: cachedBookSlide, status: "success" }));
-      return;
-    }
-
-    dispatch(setStatus("loading"));
-
-    let bookSlide = [];
-    let startIndex = 0;
-    const maxResults = 10;
-
-    while (startIndex < 10) {
-      const response = await axios.get(
-        `${GBooksAPI}?q=fiction+Magic+Mystery&startIndex=${startIndex}&maxResults=${maxResults}`
-      );
-
-      const filteredBooks = response.data.items.filter(
-        (book) => book.volumeInfo.imageLinks && book.volumeInfo.subtitle
-      );
-
-      const slidesBooksItem = filteredBooks.map((item) => {
-        const thumbnail = item.volumeInfo.imageLinks?.thumbnail
-          ? item.volumeInfo.imageLinks.thumbnail.replace("http://", "https://")
-          : null;
-
-        return {
-          ...item,
-          volumeInfo: {
-            ...item.volumeInfo,
-            imageLinks: {
-              ...item.volumeInfo.imageLinks,
-              thumbnail,
-            },
-          },
-        };
-      });
-
-      bookSlide = [...bookSlide, ...slidesBooksItem];
-      startIndex += maxResults;
-
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-    }
-
-    dispatch(getBookSlide({ data: bookSlide, status: "success" }));
   };
 };
 
