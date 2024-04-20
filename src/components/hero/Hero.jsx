@@ -44,7 +44,7 @@ function Hero() {
         {status === "loading" ? (
           <LoadingBookSlide />
         ) : (
-          <Swiper className="swiper-hero self-center mt-10">
+          <Swiper className="swiper-hero self-center mt-10 xs:mt-6 sm:mt-6 md:mt-8">
             {bookSlide.map((item, index) => (
               <SwiperSlide key={index} className="hero-slide-photos flex">
                 <div className="basis-2/3 flex pl-14 sm:pl-5 xs:pl-4">
