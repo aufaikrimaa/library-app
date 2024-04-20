@@ -73,10 +73,10 @@ function Navbar() {
               au<span className="text-[#8fabff]">Libz</span>
             </div>
           </Link>
-          <div className="navmenu flex sm:mt-[95vh] xs:mt-[95vh] xs:w-[100vw] sm:w-[100vw] xs:h-full sm:h-full xs:absolute sm:absolute xs:justify-center sm:justify-center xs:gap-2 sm:gap-2 xs:bg-white sm:bg-white">
+          <div className="navmenu flex sm:mt-[95vh] xs:mt-[95vh] xs:w-[100vw] sm:w-[100vw] xs:h-full sm:h-full xs:absolute sm:absolute xs:justify-center sm:justify-center xs:gap-8 sm:gap-18 xs:bg-white sm:bg-white">
             <Link
               to="/"
-              className={`menu mr-5 self-center text-lg md:text-base xs:text-xs sm:text-sm ${
+              className={`menu mr-5 self-center text-lg md:text-base xs:text-sm sm:text-sm ${
                 activeNav === "/" ? "active" : ""
               }`}
               onClick={() => handleNavChange("/")}
@@ -84,7 +84,7 @@ function Navbar() {
               Home
             </Link>
             <div
-              className={`menu mr-4 self-center flex text-lg md:text-base xs:text-xs sm:text-sm ${
+              className={`menu mr-4 self-center flex text-lg md:text-base xs:text-sm sm:text-sm ${
                 activeNav.includes("/books") ? "active" : ""
               }`}
               onClick={toggleDropdown}
@@ -124,7 +124,7 @@ function Navbar() {
             </div>
             <Link
               to="/all-books"
-              className={`menu self-center  text-lg md:text-base xs:text-xs sm:text-sm ${
+              className={`menu self-center  text-lg md:text-base xs:text-sm sm:text-sm ${
                 activeNav === "/all-books" ? "active" : ""
               }`}
               onClick={() => handleNavChange("/all-books")}
