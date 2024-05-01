@@ -95,7 +95,7 @@ function Navbar() {
                 className="h-[10px] md:h-[8px] xs:h-[6px] sm:h-[7px] ml-0.5 mt-0.5 self-center"
               />
               <div
-                className={`dropdown z-10 fixed sm:absolute xs:absolute bottom-full ${
+                className={`dropdown z-10 fixed sm:absolute xs:absolute xs:bottom-full sm:bottom-full ${
                   isDropdownOpen ? "open" : ""
                 }`}
               >
