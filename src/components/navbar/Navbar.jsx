@@ -57,7 +57,7 @@ function Navbar() {
     <>
       <div
         ref={navbarRef}
-        className="navbar flex fixed z-20 cursor-pointer text-[#525E85] font-bold xs:bg-white sm:bg-white sm:h-[3rem] xs:h-[3rem]"
+        className="navbar flex fixed z-20 cursor-pointer text-secondaryColor font-bold xs:bg-white sm:bg-white sm:h-[3rem] xs:h-[3rem]"
       >
         <div className="flex basis-4/5 ">
           <Link
@@ -70,7 +70,7 @@ function Navbar() {
               className="h-6 md:h-5 xs:h-4 sm:h-4 self-center"
             />
             <div className="self-center pl-1 text-3xl md:text-2xl xs:text-lg sm:text-xl mr-5 pb-1 sm:pb-0 xs:pb-0">
-              au<span className="text-[#8fabff]">Libz</span>
+              au<span className="text-tertiaryColor">Libz</span>
             </div>
           </Link>
           <div className="navmenu flex sm:mt-[95vh] xs:mt-[95vh] xs:w-[100vw] sm:w-[100vw] xs:h-full sm:h-full xs:absolute sm:absolute xs:justify-center sm:justify-center xs:gap-8 sm:gap-18 xs:bg-white sm:bg-white">
@@ -100,7 +100,7 @@ function Navbar() {
                 }`}
               >
                 {isDropdownOpen && (
-                  <div className="z-30 bg-white shadow-lg mt-5 w-[16rem] text-[#525E85]">
+                  <div className="z-30 bg-white shadow-lg mt-5 w-[16rem] text-secondaryColor">
                     <div className="block px-4 py-2 font-bold border-b-2 text-base md:text-sm xs:text-xs sm:text-xs">
                       Category
                     </div>
@@ -139,7 +139,7 @@ function Navbar() {
             className="self-center grid pr-[3rem] xs:pr-[1rem] sm:pr-[1rem]"
           >
             {countSaved ? (
-              <div className="absolute justify-self-end rounded-full bg-[#525E85] w-3.5 h-3.5 md:w-2 md:h-2 sm:h-[10px] sm:w-[10px] xs:h-[10px] xs:w-[10px] text-white flex justify-center">
+              <div className="absolute justify-self-end rounded-full bg-secondaryColor w-3.5 h-3.5 md:w-2 md:h-2 sm:h-[10px] sm:w-[10px] xs:h-[10px] xs:w-[10px] text-white flex justify-center">
                 <div className="self-center text-xs md:text-[8px] sm:text-[6px] xs:text-[6px]">
                   {countSaved}
                 </div>

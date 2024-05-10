@@ -29,19 +29,19 @@ function About() {
         </div>
         <div className="basis-3/5 flex text-center ">
           <div className="self-center">
-            <div className="text-[#525E85] text-6xl lg:text-5xl md:text-4xl sm:text-2xl xs:text-xl font-bold mb-5 md:mb-4 sm:mb-2 xs:mb-2">
+            <div className="text-secondaryColor text-6xl lg:text-5xl md:text-4xl sm:text-2xl xs:text-xl font-bold mb-5 md:mb-4 sm:mb-2 xs:mb-2">
               Find Your Favorite Books Here
             </div>
-            <div className="text-[#525E85] text-xl lg:text-lg md:text-base sm:text-sm xs:text-xs font-medium mb-5 md:mb-4 sm:mb-2 xs:mb-2">
+            <div className="text-secondaryColor text-xl lg:text-lg md:text-base sm:text-sm xs:text-xs font-medium mb-5 md:mb-4 sm:mb-2 xs:mb-2">
               <strong className="text-2xl md:text-xl sm:text-lg xs:text-base">
-                au<span className="text-[#8fabff]">Libz </span>
+                au<span className="text-tertiaryColor">Libz </span>
               </strong>
               is the ultimate collection of books sourced from Google Books.
               Find inspiration, learn new things, and explore the world of
               literature effortlessly through this platform. Start your literary
               adventure now and discover your favorite books here!
             </div>
-            <div className="flex text-[#525E85] justify-center">
+            <div className="flex text-secondaryColor justify-center">
               {booksData.map((item, index) => (
                 <div
                   key={index}
@@ -59,7 +59,7 @@ function About() {
             <div className="flex justify-center">
               <Link
                 to="/all-books"
-                className="button-read mt-6 md:mt-5 xs:mt-3 sm:mt-4 bg-[#525E85] text-white w-[40%] md:w-[38%] xs:w-[65%] sm:w-[65%] py-1 md:py-0.5 rounded-full font-bold text-xl lg:text-lg md:text-base sm:text-sm xs:text-xs cursor-pointer hover:scale-110 transition duration-300 ease-in-out"
+                className="button-read mt-6 md:mt-5 xs:mt-3 sm:mt-4 text-white bg-secondaryColor w-[40%] md:w-[38%] xs:w-[65%] sm:w-[65%] py-1 md:py-0.5 rounded-full font-bold text-xl lg:text-lg md:text-base sm:text-sm xs:text-xs cursor-pointer hover:scale-110 transition duration-300 ease-in-out"
               >
                 Go find some books➡️
               </Link>

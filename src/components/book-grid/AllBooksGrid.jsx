@@ -29,7 +29,7 @@ function AllBooksGrid() {
   return (
     <>
       <div className="section">
-        <div className="flex justify-center text-[#525E85] text-3xl md:text-2xl sm:text-xl xs:text-xl font-bold mb-4 pt-18 sm:pt-10 xs:pt-10 mb-8 sm:mb-5 xs:mb-5">
+        <div className="flex justify-center text-secondaryColor text-3xl md:text-2xl sm:text-xl xs:text-xl font-bold mb-4 pt-18 sm:pt-10 xs:pt-10 mb-8 sm:mb-5 xs:mb-5">
           All Books
         </div>
         <div className="flex mb-6 sm:mb-5 xs:mb-4 ml-6 md:ml-3 sm:ml-3 xs:ml-2">
@@ -37,7 +37,7 @@ function AllBooksGrid() {
             <input
               type="text"
               placeholder="Search books..."
-              className="px-3 py-1 sm:py-0.5 xs:py-0.5 md:text-xs sm:text-[10px] xs:text-[10px] rounded-full w-[30rem] md:w-[25rem] sm:w-[85vw] xs:w-[85vw] border border-gray-500 focus:border-[#525E85] focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+              className="px-3 py-1 sm:py-0.5 xs:py-0.5 md:text-xs sm:text-[10px] xs:text-[10px] rounded-full w-[30rem] md:w-[25rem] sm:w-[85vw] xs:w-[85vw] border border-gray-500 focus:border-secondaryColor focus:ring focus:ring-blue-200 focus:ring-opacity-50"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -68,7 +68,7 @@ function AllBooksGrid() {
               </>
             ) : (
               <div className="h-[30vh] flex">
-                <p className="self-center font-bold text-[#525E85]">
+                <p className="self-center font-bold text-secondaryColor">
                   No books found.
                 </p>
               </div>

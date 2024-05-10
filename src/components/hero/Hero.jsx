@@ -40,7 +40,7 @@ function Hero() {
 
   return (
     <>
-      <div className="hero bg-[#EBEEF6] flex text-[#525E85]">
+      <div className="hero bg-primaryColor flex text-secondaryColor">
         {status === "loading" ? (
           <LoadingBookSlide />
         ) : (
@@ -61,7 +61,7 @@ function Hero() {
                     </div>
                     <Link
                       to={`/book/${item.id}`}
-                      className="button-read mt-6 xs:mt-3 bg-[#525E85] text-white w-[12rem] md:w-[9rem] sm:w-[7rem] xs:w-[6rem] py-1 md:py-0.5 flex justify-center rounded-full font-bold text-xl md:text-base sm:text-sm xs:text-xs cursor-pointer hover:scale-110 transition duration-300 ease-in-out"
+                      className="button-read mt-6 xs:mt-3 bg-secondaryColor text-white w-[12rem] md:w-[9rem] sm:w-[7rem] xs:w-[6rem] py-1 md:py-0.5 flex justify-center rounded-full font-bold text-xl md:text-base sm:text-sm xs:text-xs cursor-pointer hover:scale-110 transition duration-300 ease-in-out"
                     >
                       Read now !
                     </Link>

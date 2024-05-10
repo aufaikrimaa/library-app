@@ -48,7 +48,7 @@ function Home() {
         <Navbar />
         <Hero />
         <div className="h-[60vh] lg:h-[70vh] md:h-[35vh] sm:h-[200px] xs:h-[200px] py-[3%] mt-2">
-          <div className="flex justify-center text-[#525E85] text-3xl sm:text-2xl xs:text-xl font-bold mb-4 xs:mb-2 sm:mb-2">
+          <div className="flex justify-center text-secondaryColor text-3xl sm:text-2xl xs:text-xl font-bold mb-4 xs:mb-2 sm:mb-2">
             200+ Books from Google
           </div>
           <AllBooks />
@@ -58,7 +58,7 @@ function Home() {
         {swiperData.map((item, index) => (
           <div
             key={index}
-            className="h-[60vh] lg:h-[70vh] md:h-[35vh] sm:h-[220px] xs:h-[212px] py-[3%] mt-2 text-[#525E85]"
+            className="h-[60vh] lg:h-[70vh] md:h-[35vh] sm:h-[220px] xs:h-[212px] py-[3%] mt-2 text-secondaryColor"
           >
             <div className="section flex justify-between mb-2 sm:mb-0.5 xs:mb-0.5">
               <div className="text-2xl md:text-xl sm:text-lg xs:text-lg font-bold">

@@ -25,7 +25,7 @@ function SavedBookCard({ img, title, id, author, book, updateSavedBooks }) {
             )}
           </Link>
           <div className="w-[12rem] h-[12rem] lg:w-[10rem] lg:h-[10rem] md:w-[8rem] md:h-[10rem] sm:w-full sm:h-[9rem] xs:w-full xs:h-[8rem] grid content-between">
-            <Link to={`/book/${id}`} className="text-[#525E85]">
+            <Link to={`/book/${id}`} className="text-secondaryColor">
               <div className="text-base lg:text-sm md:text-xs sm:text-base xs:text-sm font-bold mb-1 lg:mb-0">
                 {title}
               </div>
@@ -40,7 +40,7 @@ function SavedBookCard({ img, title, id, author, book, updateSavedBooks }) {
                 )}
               </div>
             </Link>
-            <div className="text-[#525E85] text-sm lg:text-xs md:text-[0.65rem]">
+            <div className="text-secondaryColor text-sm lg:text-xs md:text-[0.65rem]">
               <ButtonSaveBook
                 bookDetail={book}
                 isSaved={isSaved}
@@ -48,7 +48,7 @@ function SavedBookCard({ img, title, id, author, book, updateSavedBooks }) {
                 updateSavedBooks={updateSavedBooks}
                 styleIcon={"h-3 md:h-2 self-center pr-0.5"}
                 styleButton={
-                  "cursor-pointer button-read border border-2 lg:border-[1.5px] md:border-[1.2px] rounded-lg border-[#525E85] font-bold flex justify-center py-0.5 md:py-0"
+                  "cursor-pointer button-read border border-2 lg:border-[1.5px] md:border-[1.2px] rounded-lg border-secondaryColor font-bold flex justify-center py-0.5 md:py-0"
                 }
               />
             </div>

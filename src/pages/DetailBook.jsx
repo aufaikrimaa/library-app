@@ -56,7 +56,7 @@ function DetailBook() {
             <>
               {bookDetail && bookDetail.volumeInfo ? (
                 <>
-                  <div className="basis-2/3 text-[#525E85]">
+                  <div className="basis-2/3 text-secondaryColor">
                     <div className="flex">
                       <div className="hidden sm:block xs:block mr-4 mb-4">
                         {bookDetail.volumeInfo.imageLinks ? (
@@ -75,7 +75,7 @@ function DetailBook() {
                         <div className="text-3xl xs:text-xl font-bold mb-0.5">
                           {bookDetail.volumeInfo.title}
                         </div>
-                        <div className="font-medium text-lg xs:text-sm md:text-base text-[#8fabff] mb-0.5">
+                        <div className="font-medium text-lg xs:text-sm md:text-base text-tertiaryColor mb-0.5">
                           {bookDetail.volumeInfo.authors ? (
                             <>
                               {bookDetail.volumeInfo.authors.length > 1
@@ -134,7 +134,7 @@ function DetailBook() {
                       </div>
                     </div>
                     <div className="flex xs:grid">
-                      <div className="cursor-pointer button-read rounded-lg bg-[#525E85] text-white font-bold mr-2 xs:mr-0 xs:mb-2 hover:bg-white hover:text-[#525E85] border border-2 hover:border-[#525E85]">
+                      <div className="cursor-pointer button-read rounded-lg bg-secondaryColor text-white font-bold mr-2 xs:mr-0 xs:mb-2 hover:bg-white hover:text-secondaryColor border border-2 hover:border-secondaryColor">
                         {bookDetail.saleInfo.saleability === "FREE" ? (
                           <div
                             className="py-1  md:py-[6px] flex justify-center w-24 xs:w-full md:text-sm "
@@ -171,7 +171,7 @@ function DetailBook() {
                         updateSavedBooks={updateSavedBooks}
                         styleIcon={"h-3.5 md:h-3 self-center pr-0.5"}
                         styleButton={
-                          "cursor-pointer button-read border border-2 rounded-lg border-[#525E85] font-bold w-24 xs:w-full flex justify-center py-1  md:py-[6px] md:text-sm "
+                          "cursor-pointer button-read border border-2 rounded-lg border-secondaryColor font-bold w-24 xs:w-full flex justify-center py-1  md:py-[6px] md:text-sm "
                         }
                       />
                     </div>
@@ -191,7 +191,7 @@ function DetailBook() {
                   </div>
                 </>
               ) : (
-                <div className="text-[#525E85] font-bold">
+                <div className="text-secondaryColor font-bold">
                   Cannot found this book
                 </div>
               )}

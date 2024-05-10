@@ -27,7 +27,7 @@ function BookGrid({ categories }) {
           <input
             type="text"
             placeholder="Search books..."
-            className="px-3 py-1 sm:py-0.5 xs:py-0.5 md:text-xs sm:text-[10px] xs:text-[10px] rounded-full w-[30rem] md:w-[25rem] sm:w-[85vw] xs:w-[85vw] border border-gray-500 focus:border-[#525E85] focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+            className="px-3 py-1 sm:py-0.5 xs:py-0.5 md:text-xs sm:text-[10px] xs:text-[10px] rounded-full w-[30rem] md:w-[25rem] sm:w-[85vw] xs:w-[85vw] border border-gray-500 focus:border-secondaryColor focus:ring focus:ring-blue-200 focus:ring-opacity-50"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -56,7 +56,7 @@ function BookGrid({ categories }) {
               </>
             ) : (
               <div className="h-[30vh] flex">
-                <p className="self-center font-bold text-[#525E85]">
+                <p className="self-center font-bold text-secondaryColor">
                   No books found.
                 </p>
               </div>

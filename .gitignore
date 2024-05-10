@@ -10,6 +10,7 @@ lerna-debug.log*
 node_modules
 package-lock.json
 .env
+auLibz-categories.docx
 dist
 dist-ssr
 *.local
